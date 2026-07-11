@@ -24,15 +24,15 @@
 
 ```mermaid
 flowchart TB
-    U["用户目标"] --> P["过程与协作"]
-    P --> H["Runtime / Harness"]
-    H <--> L["模型推理"]
-    H <--> K["知识与状态"]
-    H <--> T["工具与连接"]
-    T <--> E["文件 / API / 业务系统"]
-    P <--> A["其他 Agent"]
-    H <--> Q["治理：Eval / 安全 / 成本"]
-    H --> O["结果或产物"]
+    U["用户目标"] --> P["过程与协作<br/>Workflow、Planning、Skill、A2A"]
+    P --> H["Runtime / Harness<br/>上下文、路由、状态、权限、预算"]
+    H <--> L["模型推理<br/>理解、生成、规划、选动作"]
+    H <--> K["知识与状态<br/>Context、RAG、Memory"]
+    H <--> T["工具与连接<br/>Function Calling、Plugin、MCP"]
+    T <--> E["文件、API、数据库与业务系统"]
+    P <--> A["其他 Agent 系统"]
+    H <--> Q["横切治理<br/>Eval、安全、观测、成本"]
+    H --> O["回答、动作结果或产物"]
 ```
 
 这张图是一张**职责地图**，不是产品安装清单。同一个应用可以把多项职责放在一个进程里，也可以拆成多个服务。重要的不是用了多少新名词，而是每一层的输入、输出、权限和失败边界是否清楚。
@@ -49,25 +49,33 @@ AI Agent 的历史很容易被写成“Prompt 被 RAG 替代，Plugin 被 Functi
 
 ```mermaid
 flowchart TB
-    L["模型推理<br/>生成、遵循、规划"]
-    K["知识与状态<br/>检索、上下文、记忆"]
-    T["工具与连接<br/>动作接口、协议、结构"]
-    P["过程与协作<br/>Runtime、Skills、A2A"]
-
-    L --> T
-    K --> P
-    T --> P
-    P --> K
-```
-
-每条路线内部的代表机制如下：
-
-```mermaid
-flowchart LR
-    L1["文本生成"] --> L2["指令提示"] --> L3["ReAct"] --> L4["受控规划"]
-    K1["Prompt 材料"] --> K2["RAG"] --> K3["Context / Memory"]
-    T1["专用 API"] --> T2["Function Calling"] --> T3["Structured Outputs / MCP"]
-    P1["Workflow"] --> P2["Agent Runtime"] --> P3["Skills / Multi-Agent / A2A"]
+    subgraph R1["模型推理路线"]
+      L1["文本生成"] --> L2["指令提示"] --> L3["ReAct"] --> L4["受控规划"]
+    end
+    subgraph R2["知识与状态路线"]
+      K1["Prompt 材料"] --> K3["Context<br/>选择与裁剪"]
+      K2["RAG"] --> K3
+      K4["Memory"] --> K3
+    end
+    subgraph R3["工具与连接路线"]
+      T1["专用 API"] --> T2["外部能力"]
+      T2 --> T3["Toolformer"]
+      T2 --> T4["Plugins"]
+      T2 --> T5["Function Calling"]
+      T2 --> T6["Structured Outputs"]
+      T2 --> T7["MCP"]
+      T5 -. "结构约束" .-> T6
+      T5 -. "运行时接力" .-> T7
+    end
+    subgraph R4["过程与协作路线"]
+      P1["固定流程"] --> P2["Workflow / Runtime"]
+      P2 --> P3["Skills"]
+      P2 --> P4["Multi-Agent / A2A"]
+    end
+    L3 -. "动作与观察" .-> T2
+    K2 -. "运行时检索" .-> P2
+    T7 -. "授权调度" .-> P2
+    P3 -. "按需加载" .-> K3
 ```
 
 四条路线可以这样记：
@@ -156,17 +164,19 @@ Agent Runtime 或 Harness 不是一个在某日统一发布的协议，而是一
 
 ```mermaid
 flowchart TB
-    G["目标"] --> C["上下文"]
-    C --> M["模型"]
+    G["接收目标"] --> C["组装最小上下文"]
+    C --> M["调用模型"]
     M --> D{"下一步？"}
-    D -->|回答| Q{"完成？"}
-    D -->|动作| V["校验并执行 Tool / MCP"]
-    D -->|委派| A["合同 + Agent 调用"]
-    V --> S["记录观察与状态"]
-    A --> S
+    D -->|回答| Q{"满足完成条件？"}
+    D -->|动作| V["校验参数、权限与预算"]
+    D -->|委派| A["建立受限任务合同"]
+    V --> X["执行 Tool / MCP"]
+    A --> X2["调用子 Agent / A2A"]
+    X --> S["记录观察与状态"]
+    X2 --> S
     S --> C
     Q -->|否| C
-    Q -->|是| O["交付并留痕"]
+    Q -->|是| O["交付产物并留痕"]
 ```
 
 运行时至少负责上下文组装、工具暴露、权限确认、状态与检查点、超时与重试、预算、停止条件和可观测性。模型可以建议“再试一次”，但是否允许重试应由运行策略决定；模型可以建议“任务已完成”，但高风险业务仍应由确定性条件或有授权的人确认。把 Runtime 误写成模型能力，会让执行与责任边界消失。
@@ -219,25 +229,19 @@ A2A 面向的是独立、可能内部不透明的 Agent 系统之间的能力发
 ```mermaid
 sequenceDiagram
     actor U as 用户
-    participant H as Harness
-    participant S as Skill
+    participant H as Harness / Runtime
+    participant S as Agent Skill
     participant K as RAG / Memory
-    participant L as 模型
-    U->>H: 提交目标与限制
-    H->>S: 加载相关方法
-    H->>K: 取回状态与证据
-    H->>L: 提供目标、上下文和能力定义
-    L-->>H: 返回回答或动作提议
-```
-
-```mermaid
-sequenceDiagram
-    participant H as Harness
     participant L as 模型
     participant M as MCP Server
     participant A as 远程 Agent
-    actor U as 用户
+    U->>H: 提交目标与限制
+    H->>S: 发现并加载相关方法
+    H->>K: 按身份、任务和权限取回状态与证据
+    H->>L: 提供目标、必要上下文和工具定义
+    L-->>H: 返回回答或结构化动作提议
     alt 调用外部能力
+      H->>H: 校验参数、权限和预算
       H->>M: MCP Tool / Resource 请求
       M-->>H: 结果、来源或明确错误
     else 委派独立 Agent
@@ -246,7 +250,7 @@ sequenceDiagram
     end
     H->>L: 回填有限观察结果
     L-->>H: 更新计划或形成结果
-    H-->>U: 交付结果或请求人工决策
+    H-->>U: 交付结果，必要时请求人工决策
 ```
 
 ## 常见误区：历史叙述怎样写偏
@@ -271,30 +275,26 @@ sequenceDiagram
 不需要按历史年份逐项复刻旧系统。更有效的顺序是先建立职责边界，再分别学习过程、知识和连接，最后处理跨平台与生产质量。
 
 ```mermaid
-flowchart LR
-    A["01 全景"] --> B["02 模型"]
-    B --> C["03 基础"]
-    C --> D["04 Tool Use"]
-    C --> E["05 Loop"]
-    C --> F["06 Context"]
-    C --> G["07 A2A"]
-    D --> H["08 路由"]
-    F --> H
-    G --> H
-```
-
-```mermaid
-flowchart LR
-    H["08 路由"] --> I["09 人机协作"]
-    H --> J["10 Skill"]
-    H --> K["11 MCP"]
-    E["05 Loop"] --> J
-    J --> L["14 组合实践"]
-    K --> L
-    L --> M["15 Runtime"]
-    M --> N["12 跨 Harness"]
-    N --> O["13 质量安全"]
-    O --> P["24 来源维护"]
+flowchart TB
+    A["01 全景与演进"] --> L["02 模型能力"]
+    L --> B["03 基础关系"]
+    B --> C["04 Tool Use"]
+    B --> D["05 Loop / Workflow"]
+    B --> E["06 Context / RAG"]
+    B --> F["07 Multi-Agent / A2A"]
+    C --> R["08 能力发现与路由"]
+    E --> R
+    F --> R
+    R --> X["09 人机协作"]
+    R --> G["10 制作 Skill"]
+    D --> G
+    R --> H["11 制作 MCP Server"]
+    G --> I["14 Skill + MCP 实践"]
+    H --> I
+    I --> Y["15 生产 Runtime"]
+    Y --> J["12 跨 Harness 适配"]
+    J --> K["13 质量与安全"]
+    K --> Z["24 来源与维护"]
 ```
 
 可以按目标选择路线：

@@ -40,31 +40,24 @@
 ```mermaid
 sequenceDiagram
     actor U as 用户
-    participant H as Harness
-    participant L as 模型
-    U->>H: 提交目标与限制
-    H->>L: 当前目标、状态与允许动作
-    L-->>H: 摘要、澄清问题或计划提议
-    H-->>U: 展示歧义或计划摘要
-    U-->>H: 补充、纠正或允许继续
-    H->>L: 更新任务状态
-```
-
-```mermaid
-sequenceDiagram
-    actor U as 用户
-    participant H as Harness
+    participant H as Harness / Runtime
     participant L as 模型
     participant T as Tool / MCP / 业务系统
+    U->>H: 提交目标与限制
+    H->>L: 当前目标、状态与允许动作
+    L-->>H: 理解摘要、澄清问题或计划提议
+    H-->>U: 确认歧义，或展示有限计划摘要
+    U-->>H: 补充、纠正或允许继续
+    H->>L: 更新后的任务状态
     L-->>H: 只读查询或写操作提议
     H->>T: 调度允许的只读调用
     T-->>H: 结果、来源与状态
-    H-->>U: 进度和证据缺口
-    H-->>U: 写操作预览
+    H-->>U: 进度、证据缺口和待决定事项
+    H-->>U: 写操作预览：对象、影响、参数、有效期
     U-->>H: 批准、拒绝或修改
-    H->>T: 执行已批准动作
+    H->>T: 执行被批准且重新授权的动作
     T-->>H: 外部操作 ID 与权威状态
-    H-->>U: 终态、产物与恢复入口
+    H-->>U: 终态、产物、未完成项与恢复入口
 ```
 
 模型可以提出澄清问题、计划和动作，但 Harness 应从结构化状态决定当前允许哪种交互。用户点击“允许”只是审批记录的一部分；业务系统仍要验证真实身份和对象权限。

@@ -33,7 +33,7 @@
 
 ```mermaid
 flowchart LR
-    C["组件评测<br/>Model/RAG/Memory/Skill/Tool"] --> T["轨迹评测<br/>Step/State/Call/Approval/Stop"]
+    C["组件评测<br/>Model/RAG/Memory<br/>Skill/Tool"] --> T["轨迹评测<br/>Step/State/Call<br/>Approval/Stop"]
     T --> A["产物评测<br/>正确、完整、可追溯"]
     A --> B["业务结果<br/>风险、效率、成本与人工负担"]
     B -.线上反馈.-> C

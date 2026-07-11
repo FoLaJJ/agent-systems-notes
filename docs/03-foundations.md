@@ -218,22 +218,14 @@ sequenceDiagram
 
     H->>F: 扫描可用 Skill
     F-->>H: 返回名称、描述和位置
-    U->>H: 提交发布审查任务
-    H->>L: 提供 Skill 索引与任务
-    L-->>H: 判断相关 Skill
-    H->>F: 读取 SKILL.md
-    H->>L: 加入方法和步骤
-```
-
-```mermaid
-sequenceDiagram
-    participant F as Skill 目录
-    participant H as Harness
-    participant L as 模型
-    L-->>H: 请求参考资料或工具
-    H->>F: 按需读取被引用文件
+    H->>L: 提供精简的 Skill 目录与用户任务
+    L-->>H: 判断“发布风险审查”与任务匹配
+    H->>F: 读取对应 SKILL.md 正文
+    H->>L: 加入方法、步骤和资源入口
+    L-->>H: 按步骤请求所需参考资料或工具
+    H->>F: 按需读取被引用的文件
     F-->>H: 返回相关内容
-    H->>L: 注入当前步骤材料
+    H->>L: 只加入当前步骤需要的材料
     L-->>H: 继续审查并形成产物
 ```
 
@@ -261,27 +253,19 @@ sequenceDiagram
 
     H->>C: 根据配置建立连接
     C->>S: 初始化并协商能力
-    S-->>C: 返回能力信息
+    S-->>C: 返回支持的能力
     C->>S: 请求可用工具列表
-    S-->>C: 返回名称、描述和 Schema
+    S-->>C: 返回工具描述与 Schema
     H->>L: 选择性提供相关工具定义
-```
-
-```mermaid
-sequenceDiagram
-    actor U as 用户
-    participant H as Harness/Host
-    participant C as MCP Client
-    participant S as 制度库 MCP Server
-    participant L as 模型
     U->>H: 确认审查最新发布制度
-    L-->>H: 建议调用查询工具
+    L-->>H: 建议调用制度查询工具及参数
     H->>H: 检查权限、风险和参数
     H->>C: 执行允许的调用
     C->>S: 发起工具调用
-    S-->>C: 返回记录或错误
+    S-->>C: 返回制度记录或明确错误
     C-->>H: 交回调用结果
     H->>L: 裁剪后加入上下文
+    L-->>H: 将制度与本次变更逐项比对
 ```
 
 这张图中有两类内容可能进入模型上下文，但时间不同：
@@ -314,25 +298,19 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A{"这项要求只服务于当前一次任务吗？"}
+    A{"只服务当前任务？"}
     A -->|是| P["当前 Prompt"]
-    A -->|否| B{"它是否几乎对这个项目的每次任务都适用？"}
+    A -->|否| B{"项目内总是适用？"}
     B -->|是| I["项目指令"]
-    B -->|否| C{"它是否是一类任务可复用的方法？"}
+    B -->|否| C{"是否可复用方法？"}
     C -->|是| S["Skill"]
-    C -->|否| D{"是否需要实时外部数据或动作？"}
+    C -->|否| D{"需要外部数据或动作？"}
     D -->|是| M["MCP 或已有工具接口"]
     D -->|否| R["普通文档或知识库"]
-```
-
-补充判断：
-
-```mermaid
-flowchart LR
-    S["Skill"] --> E{"还要访问外部系统？"}
+    S --> E{"完成方法时是否还要访问外部系统？"}
     E -->|是| SM["Skill + MCP"]
     E -->|否| S
-    F{"成组安装多种扩展？"} -->|是| G["Plugin / 扩展包"]
+    F{"成组安装扩展？"} -->|是| G["Plugin / 扩展包"]
 ```
 
 ### 当前 Prompt：只处理眼前这一次

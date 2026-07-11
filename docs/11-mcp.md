@@ -469,20 +469,13 @@ sequenceDiagram
     participant H as Host / Harness
     participant C as MCP Client
     participant S as MCP Server
-    H->>C: 创建连接并应用策略
-    C->>S: initialize
-    S-->>C: Server 能力与信息
-    C->>S: initialized
+    H->>C: 创建连接并应用本地策略
+    C->>S: initialize：版本、Client 能力
+    S-->>C: Server 版本、能力、信息
+    C->>S: initialized 通知
     C->>S: tools/list 或 resources/list
     S-->>C: 能力描述与 Schema
-    H->>H: 过滤并决定暴露范围
-```
-
-```mermaid
-sequenceDiagram
-    participant H as Host / Harness
-    participant C as MCP Client
-    participant S as MCP Server
+    H->>H: 过滤、命名并决定暴露范围
     H->>C: 已批准的调用请求
     C->>S: tools/call
     S-->>C: 内容、结构化结果或错误
