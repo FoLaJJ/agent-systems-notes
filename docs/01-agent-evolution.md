@@ -276,25 +276,41 @@ sequenceDiagram
 
 ```mermaid
 flowchart TB
-    A["01 全景与演进"] --> L["02 模型能力"]
-    L --> B["03 基础关系"]
-    B --> C["04 Tool Use"]
-    B --> D["05 Loop / Workflow"]
-    B --> E["06 Context / RAG"]
-    B --> F["07 Multi-Agent / A2A"]
-    C --> R["08 能力发现与路由"]
-    E --> R
-    F --> R
-    R --> X["09 人机协作"]
-    R --> G["10 制作 Skill"]
-    D --> G
-    R --> H["11 制作 MCP Server"]
-    G --> I["14 Skill + MCP 实践"]
-    H --> I
-    I --> Y["15 生产 Runtime"]
-    Y --> J["12 跨 Harness 适配"]
-    J --> K["13 质量与安全"]
-    K --> Z["24 来源与维护"]
+    subgraph R1["基础层"]
+      direction LR
+      A["01 全景与演进"] --> L["02 模型能力"]
+      L --> B["03 基础关系"]
+      B --> C["04 Tool Use"]
+    end
+
+    subgraph R2["能力层"]
+      direction RL
+      D["05 Loop / Workflow"] --> G["10 制作 Skill"]
+      E["06 Context / RAG"] --> R["08 能力发现与路由"]
+      F["07 Multi-Agent / A2A"] --> R
+    end
+
+    subgraph R3["落地层"]
+      direction LR
+      X["09 人机协作"] --> H["11 制作 MCP Server"]
+      H --> I["14 Skill + MCP 实践"]
+      I --> Y["15 生产 Runtime"]
+    end
+
+    subgraph R4["治理层"]
+      direction RL
+      J["12 跨 Harness 适配"] --> K["13 质量与安全"]
+      K --> Z["24 来源与维护"]
+    end
+
+    C --> D
+    C --> E
+    C --> F
+    R --> X
+    R --> G
+    R --> H
+    G --> I
+    Y --> J
 ```
 
 可以按目标选择路线：

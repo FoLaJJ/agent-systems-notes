@@ -178,14 +178,22 @@ ReAct、Plan-and-Execute、Supervisor、Group Chat、Swarm、Pipeline、Graph Ru
 ### 路线 A：第一次接触，先建立整体认识
 
 ```mermaid
-flowchart LR
-    A["01 全景与演进"] --> B["02 LLM 能力底座"]
-    B --> C["03 Agent / Skill / MCP 基础"]
-    C --> D["04 Function Calling"]
-    D --> E["05 Loop + 06 Context"]
-    E --> F["08 路由 + 09 人机协作"]
-    F --> G["10 Skill + 11 MCP"]
-    G --> H["14 组合实践"]
+flowchart TB
+    subgraph R1["先建立底层概念"]
+      direction LR
+      A["01 全景与演进"] --> B["02 LLM 能力底座"]
+      B --> C["03 Agent / Skill / MCP 基础"]
+      C --> D["04 Function Calling"]
+    end
+
+    subgraph R2["再进入控制、路由与制作"]
+      direction RL
+      E["05 Loop + 06 Context"] --> F["08 路由 + 09 人机协作"]
+      F --> G["10 Skill + 11 MCP"]
+      G --> H["14 组合实践"]
+    end
+
+    D --> E
 ```
 
 读完这条路线，至少要能解释现代 Agent 的模型与系统层次，追踪一次 Tool Call 的完整闭环，说明能力为什么进入或退出候选，设计用户可纠正的交互，并制作最小可用的 Skill 与 MCP Server。
