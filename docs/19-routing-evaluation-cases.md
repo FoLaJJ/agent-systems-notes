@@ -1,12 +1,12 @@
 # 19. 示例：Skill 路由评测案例
 
-> 本章把路由案例和相邻 Skill 夹具放在同一份文档里，用于教学和团队复核。
+> 路由案例和相邻 Skill 夹具放在同一份文档里，用于教学和团队复核。
 
 ## 评测夹具说明
 
 下面这些 Skill 只提供相邻候选元数据，用于验证 `release-risk-review-skill` 的误触发、优先级和协同边界，不是可直接投入生产的完整流程。
 
-运行评测时，把本章中的四个夹具与[发布风险审查 Skill 示例](16-example-release-risk-review-skill.md)准备在隔离测试区。每条案例开始前，只把该案例 `available_skills` 列出的目录安装或启用到目标 Harness；未列出的 Skill 必须从当次 catalog 移除或禁用。只记录是否激活及激活顺序，不把夹具正文当作目标答案，也不把前一次运行的上下文带入下一次。
+运行评测时，把下面四个夹具与[发布风险审查 Skill 示例](16-example-release-risk-review-skill.md)准备在隔离测试区。每条案例开始前，只把该案例 `available_skills` 列出的目录安装或启用到目标 Harness；未列出的 Skill 必须从当次 catalog 移除或禁用。只记录是否激活及激活顺序，不把夹具正文当作目标答案，也不把前一次运行的上下文带入下一次。
 
 夹具的 `description` 是测试输入的一部分。修改任何描述后，必须重跑全部路由案例并记录 Harness、模型、版本和日期。
 
@@ -83,7 +83,7 @@ version: "1.0"
 skill: release-risk-review-skill
 说明: >-
   这组案例验证发布风险审查 Skill 的发现与路由质量。执行时应在全新会话中提供
-  发布风险审查 Skill 示例与本章相邻候选 Skill，
+  发布风险审查 Skill 示例与相邻候选 Skill，
   记录实际激活结果，不向 Agent 泄露 expected 字段或 reason。
 
 候选目录:

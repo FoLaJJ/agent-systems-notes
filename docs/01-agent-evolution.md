@@ -1,8 +1,8 @@
 # 01. AI Agent 全景与演进史
 
-> AI Agent 不是某一天突然被发明出来的单一技术。它更像一套逐步分工的系统：模型负责理解和提出候选动作，知识与状态机制提供当前证据，工具接口连接外部世界，运行时控制执行循环，Skill 与协作协议再把过程和组织边界表达清楚。本章先建立全景，再进入后续专题。
+> AI Agent 不是某一天突然被发明出来的单一技术。它更像一套逐步分工的系统：模型负责理解和提出候选动作，知识与状态机制提供当前证据，工具接口连接外部世界，运行时控制执行循环，Skill 与协作协议再把过程和组织边界表达清楚。先建立全景，再进入后续专题。
 
-> **时间范围：** “智能体”研究早于大语言模型数十年，经典规划、BDI、多智能体系统、强化学习和机器人都有自己的历史。本文不重写整个 AI 史，而是聚焦 2017 年 Transformer 之后的现代 LLM Agent 工程；把 2017 年当作本表起点，不代表 Agent 在这一年才出现。
+> **时间范围：** “智能体”研究早于大语言模型数十年，经典规划、BDI、多智能体系统、强化学习和机器人都有自己的历史。这里不重写整个 AI 史，而是聚焦 2017 年 Transformer 之后的现代 LLM Agent 工程；把 2017 年当作本表起点，不代表 Agent 在这一年才出现。
 
 ## 2017 年之前：现代 Agent 继承了什么
 
@@ -16,7 +16,7 @@
 | 多智能体系统 | 多个自治参与者怎样协调、通信、协商或竞争 | 委派、协议、身份、协作与分布式状态 |
 | 任务型对话与语义接口 | 怎样识别用户意图、抽取参数并映射到领域动作 | 意图、槽位、对话状态、自然语言到结构化语义 |
 
-本教程不会用这张表替代经典 Agent 或对话系统课程。它的作用是划清范围：2017 年之后的 LLM Agent 把通用自然语言模型接入了既有的 Agent 和自然语言接口问题，而不是从零发明“行动者”或“自然语言到参数”。代表性来源见[来源索引 A00](24-sources.md#a00-经典智能体研究范围)与[A00A](24-sources.md#a00a-任务型对话与语义接口前史)。
+这张表不替代经典 Agent 或对话系统课程，只用于划清范围：2017 年之后的 LLM Agent 把通用自然语言模型接入了既有的 Agent 和自然语言接口问题，而不是从零发明“行动者”或“自然语言到参数”。代表性来源见[来源索引 A00](24-sources.md#a00-经典智能体研究范围)与[A00A](24-sources.md#a00a-任务型对话与语义接口前史)。
 
 ## AI Agent 知识地图：Agent 是系统，不是一个模型功能
 
@@ -39,7 +39,7 @@ flowchart TB
 
 评测、安全、可观测性和成本不是上线前才临时补上的“第五条演进路线”，而是横切每一层的控制。检索需要评测召回，Tool 需要验证授权与副作用，Skill 需要路由正反例，Multi-Agent 需要追踪委派，Runtime 则要把预算、终态和停用开关变成程序行为。
 
-本教程采用“**Agent = 模型 + 运行时提供的上下文、状态、工具和执行循环**”这条简化关系建立直觉。这不是某项开放规范规定的公式。它只是提醒我们：模型生成一个工具调用建议，不等于工具已经执行；模型读到一段检索结果，不等于它拥有知识库；系统可以循环，也不等于它应获得无限自主权。更完整的基础定义见[03. 先认识 Agent、Skill 与 MCP](03-foundations.md)。
+这里采用“**Agent = 模型 + 运行时提供的上下文、状态、工具和执行循环**”这条简化关系建立直觉。这不是某项开放规范规定的公式，而是用于强调三个边界：模型生成一个工具调用建议，不等于工具已经执行；模型读到一段检索结果，不等于它拥有知识库；系统可以循环，也不等于它应获得无限自主权。更完整的基础定义见[03. 先认识 Agent、Skill 与 MCP](03-foundations.md)。
 
 ## 四条路线同时演进
 
@@ -116,11 +116,11 @@ flowchart TB
 | 2025-04-09 | A2A 公开发布 | 过程与协作 | Google Developers Blog 的 [Announcing the Agent2Agent Protocol](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/) 发布 Agent2Agent 协议，面向独立 Agent 系统的发现、任务通信和协作。 |
 | 2025-06-23 | A2A 转入开放治理 | 过程与协作 | [Linux Foundation 公告](https://www.linuxfoundation.org/press/linux-foundation-launches-the-agent2agent-protocol-project-to-enable-secure-intelligent-communication-between-ai-agents) 宣布 A2A 项目进入基金会治理。治理变化不等于所有实现已经互通。 |
 | 2025-10-16 | Agent Skills 系统介绍 | 过程与知识 | Anthropic 的 [Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) 介绍由 `SKILL.md`、脚本和资源组成、按需渐进披露的机制。它不是“过程知识”概念的起点。 |
-| 2025-11-25 | MCP 当前稳定基线 | 工具与连接 | [`2025-11-25` MCP 规范](https://modelcontextprotocol.io/specification/2025-11-25) 固定了本教程采用的 Host、Client、Server、能力与消息要求。Current 不表示协议永不变化。 |
+| 2025-11-25 | MCP 当前稳定基线 | 工具与连接 | [`2025-11-25` MCP 规范](https://modelcontextprotocol.io/specification/2025-11-25) 固定了本系列采用的 Host、Client、Server、能力与消息要求。Current 不表示协议永不变化。 |
 | 2025-12-18 | Agent Skills 作为开放标准发布 | 过程与知识 | 上述 Anthropic 文章在该日宣布 Agent Skills 成为开放标准；当前[规范入口](https://agentskills.io/specification)面向跨平台可移植性。该规范是滚动页面，使用时还要记录核对日期并固定仓库提交或快照。 |
 | 2026-03-12 | A2A `v1.0.0` | 过程与协作 | 官方仓库发布 [A2A `v1.0.0`](https://github.com/a2aproject/A2A/releases/tag/v1.0.0)。版本发布证明规范达到该项目定义的 1.0，不证明每个 Agent 产品都通过互操作认证。 |
 | 2026-05-28 | A2A `v1.0.1` 来源快照 | 过程与协作 | 官方仓库发布 [A2A `v1.0.1`](https://github.com/a2aproject/A2A/releases/tag/v1.0.1) 补丁快照；线缆协议版本仍是 `1.0`，补丁号不参与协商。 |
-| 2026-07-10 | 本教程状态截面 | 四条路线汇合 | 截至本教程核对日，MCP、A2A 与 Agent Skills 都已有公开规范或仓库，但版本、实现范围和治理方式不同。当前基线集中记录在[24. 官方来源、事实标签与版本基线](24-sources.md)。 |
+| 2026-07-10 | 本系列状态截面 | 四条路线汇合 | 截至核对日，MCP、A2A 与 Agent Skills 都已有公开规范或仓库，但版本、实现范围和治理方式不同。当前基线集中记录在[24. 官方来源、事实标签与版本基线](24-sources.md)。 |
 
 ## 每个节点究竟改变了哪条边界
 
@@ -272,7 +272,7 @@ sequenceDiagram
 
 ## 怎样继续学习
 
-不需要按历史年份逐项复刻旧系统。更有效的顺序是先建立职责边界，再分别学习过程、知识和连接，最后处理跨平台与生产质量。
+不需要按历史年份逐项复刻旧系统。更有效的顺序是先建立职责边界，再分别学习过程、知识和连接，随后处理跨平台与生产质量。
 
 ```mermaid
 flowchart TB
@@ -315,13 +315,13 @@ flowchart TB
 
 可以按目标选择路线：
 
-1. **第一次接触 Agent**：本章 -> [02. LLM 能力底座](02-model-capabilities.md) -> [03. 基础关系](03-foundations.md) -> [04. Function Calling](04-function-calling.md) -> [05. Agent Loop](05-agent-loop-workflows.md)。
+1. **第一次接触 Agent**：[01. 全景与演进](01-agent-evolution.md) -> [02. LLM 能力底座](02-model-capabilities.md) -> [03. 基础关系](03-foundations.md) -> [04. Function Calling](04-function-calling.md) -> [05. Agent Loop](05-agent-loop-workflows.md)。
 2. **要解决知识与状态问题**：[02. LLM 能力底座](02-model-capabilities.md)中的上下文与 Embedding -> [06. Context Engineering、RAG 与 Memory](06-context-rag-memory.md) -> [08. 能力发现与路由](08-capability-discovery-routing.md) -> [11. MCP Server](11-mcp.md)中 Resources 与 Tools 的区别。
 3. **要做可复用专项能力**：[10. Agent Skill](10-skills.md) -> [14. Skill 与 MCP 组合实践](14-skill-mcp-together.md)。
 4. **要做跨系统协作**：[07. Multi-Agent、委派与 A2A](07-multi-agent-a2a.md)；先证明本地单 Agent 或 Workflow 不足，再引入远程委派。
 5. **要交付团队或生产环境**：[09. 人机协作与可控交互](09-human-agent-interaction.md) -> [15. 生产级 Agent Runtime](15-production-agent-runtime.md) -> [12. 跨 Harness 适配](12-cross-harness.md) -> [13. 质量工程与安全](13-quality-and-security.md) -> [24. 官方来源、事实标签与版本基线](24-sources.md)。
 
-## 本章小结
+## 关键结论
 
 1. AI Agent 的演进至少包含模型推理、知识与状态、工具与连接、过程与协作四条并行路线。
 2. Transformer、RAG、ReAct、Toolformer 等论文提出的是特定架构或方法，不能单独承担整个 Agent 历史的起点。

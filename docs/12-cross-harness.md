@@ -1,14 +1,14 @@
 # 12. 跨 Harness 适配
 
-> 基线日期：2026-07-10。MCP 兼容基线固定为 `2025-11-25`。本章只把稳定规范作为实现要求；Draft 或 RC 能力仅可进入前瞻试验，不能进入兼容性声明。
+> 基线日期：2026-07-10。MCP 兼容基线固定为 `2025-11-25`。稳定规范才进入实现要求；Draft 或 RC 能力仅可进入前瞻试验，不能进入兼容性声明。
 
-> **阅读建议：** 本章是进阶参考，不是制作第一个 Skill 或 MCP Server 的前置章节。先完成[Skills 教程](10-skills.md)或[MCP 教程](11-mcp.md)，并理解[能力发现与路由](08-capability-discovery-routing.md)，准备把同一能力交付到多个 Harness 时再回来查路径、配置和差异。
+> **使用场景：** 这是进阶参考，不是制作第一个 Skill 或 MCP Server 的前置章节。先完成[Skills 制作](10-skills.md)或[MCP 制作](11-mcp.md)，并理解[能力发现与路由](08-capability-discovery-routing.md)；准备把同一能力交付到多个 Harness 时，再查路径、配置和差异。
 
 ## 跨平台不等于原样复制
 
-`[建议]` 本教程把可移植性定义为：**同一个行为合同，在不同 Harness 中得到等价结果和等价安全边界**。目录名、斜杠命令、配置文件格式和确认界面可以不同。
+`[建议]` 可移植性定义为：**同一个行为合同，在不同 Harness 中得到等价结果和等价安全边界**。目录名、斜杠命令、配置文件格式和确认界面可以不同。
 
-`[实测]` 截至基线日期，仓库只完成静态规范校验、路由评测结构校验和示例 MCP 协议测试，尚未提交表中四类 Harness 的版本化端到端执行记录。本章矩阵是安装与验证基线，不是已经通过全部平台认证的结果表；完成兼容声明前必须按本章发布门补齐证据。
+`[实测]` 截至基线日期，仓库只完成静态规范校验、路由评测结构校验和示例 MCP 协议测试，尚未提交表中四类 Harness 的版本化端到端执行记录。下面的矩阵是安装与验证基线，不是已经通过全部平台认证的结果表；完成兼容声明前必须按发布检查补齐证据。
 
 ```mermaid
 flowchart LR
@@ -58,7 +58,7 @@ flowchart LR
 | --- | --- | --- | --- | --- |
 | 配置入口 | `[平台]` 项目 `.mcp.json`；另有 local、user 等作用域 | `[平台]` `~/.codex/config.toml` 或受信任项目的 `.codex/config.toml`，也可用 `codex mcp` 管理 | `[平台]` 用户或工作区 `settings.json` 的 `mcpServers` | `[平台]` Copilot CLI `~/.copilot/mcp-config.json`；VS Code 工作区 `.vscode/mcp.json` |
 | 稳定传输交集 | `[平台]` stdio、Streamable HTTP | `[平台]` stdio、Streamable HTTP | `[平台]` stdio、Streamable HTTP | `[平台]` stdio、Streamable HTTP |
-| 兼容但不作核心基线 | `[平台]` SSE；Claude Code 另有产品扩展传输 | `[建议]` 不在本教程基线中增加 | `[平台]` SSE | `[平台]` SSE；CLI 文档明确其为旧式兼容 |
+| 兼容但不作核心基线 | `[平台]` SSE；Claude Code 另有产品扩展传输 | `[建议]` 不纳入稳定基线 | `[平台]` SSE | `[平台]` SSE；CLI 文档明确其为旧式兼容 |
 | Tools | `[平台]` 支持，纳入权限规则 | `[平台]` 文档化的主要 MCP 表面 | `[平台]` 支持，可 include/exclude | `[平台]` CLI 与 VS Code 均支持 |
 | Resources / Prompts | `[平台]` 支持，但交互入口由产品决定 | `[建议]` 不作为 Codex 跨端最低公分母 | `[平台]` Resources 可用 `@` 引用，Prompts 可发现 | `[平台]` VS Code 支持添加 Resources 和调用 MCP Prompts；CLI 需按当前版本验证 |
 | 工具裁剪 | `[平台]` 权限规则与产品配置 | `[平台]` `enabled_tools`、`disabled_tools` | `[平台]` `includeTools`、`excludeTools`，排除优先 | `[平台]` Copilot CLI `tools`；VS Code 可通过工具选择和组织策略控制 |
@@ -133,7 +133,7 @@ MCP Server 建议满足以下约束：
 }
 ```
 
-`[平台]` 项目级 Server 首次使用可能处于待批准状态。配置被版本控制共享，不等于每个开发者已经信任它；应在交互会话中检查命令、参数和来源后批准。本文只展示配置形态，不提供命令脚本。
+`[平台]` 项目级 Server 首次使用可能处于待批准状态。配置被版本控制共享，不等于每个开发者已经信任它；应在交互会话中检查命令、参数和来源后批准。这里只展示配置形态，不提供命令脚本。
 
 ## OpenAI Codex CLI 适配
 
@@ -193,7 +193,7 @@ default_tools_approval_mode = "prompt"
 
 ## GitHub Copilot CLI 与 VS Code 适配
 
-`[平台]` Copilot 的 Agent Skills 概览列出 `.github/skills`、`.claude/skills`、`.agents/skills` 三种项目路径；为减少副本，本教程对这组产品也采用 `.agents/skills`。参见 [S19](24-sources.md#s19-github-copilot-agent-skills)。
+`[平台]` Copilot 的 Agent Skills 概览列出 `.github/skills`、`.claude/skills`、`.agents/skills` 三种项目路径；为减少副本，这组产品也采用 `.agents/skills`。参见 [S19](24-sources.md#s19-github-copilot-agent-skills)。
 
 Copilot CLI 检查命令：
 
@@ -302,7 +302,7 @@ flowchart TD
 
 | 现象 | 常见根因 | 修复方向 |
 | --- | --- | --- |
-| 平台 A 自动触发，平台 B 不触发 | 索引裁剪、描述歧义、Skill 未被发现 | 先查发现列表，再跑显式调用，最后改路由描述 |
+| 平台 A 自动触发，平台 B 不触发 | 索引裁剪、描述歧义、Skill 未被发现 | 先查发现列表，再跑显式调用，再改路由描述 |
 | Tool 在一个平台可见，另一个不可见 | Schema 被 Sanitizer 拒绝、过滤列表、能力未协商 | 用 Inspector 和 Client 日志检查，不改业务逻辑掩盖 |
 | 相对路径只在仓库根运行 | Harness 的进程工作目录不同 | 使用平台变量、`cwd` 或安装期生成绝对路径 |
 | 环境变量在一端展开、另一端原样传递 | 各配置语法的插值规则不同 | 逐端使用官方插值方式，禁止把密钥写入参数 |
@@ -310,7 +310,7 @@ flowchart TD
 | 拒绝调用后 Agent 仍声称取得结果 | Skill 缺少降级规则，模型把计划当事实 | 合同要求标记“未验证”，禁止伪造证据 |
 | 同名 Tool 选择不稳定 | 命名空间被压缩、描述近似、工具太多 | 工具裁剪、重命名、增加负例与选择断言 |
 
-## 本章发布门
+## 发布检查
 
 - [ ] Skill 开放核心只依赖 `name` 与 `description` 的共同语义。
 - [ ] 表中声明支持的全部 Harness 均验证了发现、显式调用、自动路由和近邻反例。

@@ -1,6 +1,8 @@
 # 08. 能力发现、候选裁剪与路由
 
-> 一个高质量 Skill 或 MCP Tool，只有在正确任务、正确身份和正确阶段被选中时才真正有价值。本章统一讨论 Skill 激活、Tool 选择、MCP 能力发现与 A2A Agent 发现的治理和评测，但保留它们在选中后的不同语义。建议先阅读[基础关系](03-foundations.md)、[Function Calling](04-function-calling.md)和[Agent Loop](05-agent-loop-workflows.md)；阅读上下文分支前参考[Context Engineering、RAG 与 Memory](06-context-rag-memory.md)，阅读 A2A 分支前参考[Multi-Agent、委派与 A2A](07-multi-agent-a2a.md)。
+> 一个高质量 Skill 或 MCP Tool，只有在正确任务、正确身份和正确阶段被选中时才真正有价值。这里统一讨论 Skill 激活、Tool 选择、MCP 能力发现与 A2A Agent 发现的治理和评测，但保留它们在选中后的不同语义。建议先阅读[基础关系](03-foundations.md)、[Function Calling](04-function-calling.md)和[Agent Loop](05-agent-loop-workflows.md)；阅读上下文分支前参考[Context Engineering、RAG 与 Memory](06-context-rag-memory.md)，阅读 A2A 分支前参考[Multi-Agent、委派与 A2A](07-multi-agent-a2a.md)。
+
+![能力路由三道门中文图](../assets/images/capability-routing-gates-zh.svg)
 
 ## 从“能力都装好了，却还是选错”说起
 
@@ -33,7 +35,7 @@
 | MCP Resource / Prompt | 相应列表或用户/应用入口 | 可寻址资源或参数化模板元数据 | 经过权限、信任和大小门后读取或组装上下文，不等于执行 Tool |
 | A2A Agent | Agent Card 或受控 Agent 目录 | 身份、能力、端点和交互要求 | Client 发送 Message（消息）；远端可直接返回 Message，或创建并返回 Task（任务）供跟踪 |
 
-`[规范]` 这些入口来自不同规范，不能强行合并成一个网络协议。本章统一的是**发现、注册、候选治理、Trace 与评测方法**，不是声明 Skill、Resource、Tool 和 A2A 具有同一种消息或执行语义。
+`[规范]` 这些入口来自不同规范，不能强行合并成一个网络协议。这里统一的是**发现、注册、候选治理、Trace 与评测方法**，不是声明 Skill、Resource、Tool 和 A2A 具有同一种消息或执行语义。
 
 ## 路由的核心：受控召回、授权暴露、分类型处理
 
@@ -58,7 +60,7 @@ flowchart TB
 - **对象资格依赖生成参数**：候选暴露前先做粗粒度资格，Tool Call 产生后再做对象级授权；
 - **所有实现都要保留**：自然语言描述不决定权限，具体 Tool 执行和 A2A 委派仍要再次授权。
 
-可以把它记成三道门：
+路由可分成三道门：
 
 | 门 | 主要问题 | 典型负责人 | 失败结果 |
 | --- | --- | --- | --- |

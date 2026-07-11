@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">人机协作控制面中文图</title>
+  <desc id="desc">中文界面式示意图，展示目标确认、计划摘要、批准、进度、纠正、取消、恢复和证据区。</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f8fa; }
+      .shell { fill: #ffffff; stroke: #c9d4df; stroke-width: 2; rx: 20; }
+      .nav { fill: #e7f0ff; stroke: #9bbcf9; stroke-width: 1.5; rx: 14; }
+      .panel { fill: #ffffff; stroke: #d0d7de; stroke-width: 1.5; rx: 12; }
+      .accent { fill: #ddf4ff; stroke: #54aeef; stroke-width: 1.5; rx: 12; }
+      .ok { fill: #dafbe1; stroke: #2da44e; stroke-width: 1.5; rx: 12; }
+      .warn { fill: #fff8c5; stroke: #d4a72c; stroke-width: 1.5; rx: 12; }
+      .danger { fill: #ffebe9; stroke: #cf222e; stroke-width: 1.5; rx: 12; }
+      .text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #1f2328; }
+      .small { font-size: 20px; }
+      .mid { font-size: 26px; font-weight: 700; }
+      .big { font-size: 36px; font-weight: 700; }
+      .line { fill: none; stroke: #8c959f; stroke-width: 2.5; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8c959f"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+  <text class="text big" x="640" y="58" text-anchor="middle">可控 Agent 交互：让用户看得懂、改得动、停得住</text>
+  <text class="text small" x="640" y="94" text-anchor="middle">高风险节点展示对象、影响、证据和责任边界；进度来自 Runtime 状态</text>
+
+  <rect class="shell" x="70" y="132" width="1140" height="520"/>
+  <rect class="nav" x="100" y="164" width="270" height="448"/>
+  <text class="text mid" x="235" y="204" text-anchor="middle">任务控制</text>
+
+  <rect class="panel" x="124" y="236" width="222" height="64"/>
+  <text class="text small" x="235" y="276" text-anchor="middle">目标确认</text>
+  <rect class="panel" x="124" y="318" width="222" height="64"/>
+  <text class="text small" x="235" y="358" text-anchor="middle">计划摘要</text>
+  <rect class="warn" x="124" y="400" width="222" height="64"/>
+  <text class="text small" x="235" y="440" text-anchor="middle">等待批准</text>
+  <rect class="danger" x="124" y="482" width="100" height="58"/>
+  <text class="text small" x="174" y="518" text-anchor="middle">取消</text>
+  <rect class="ok" x="246" y="482" width="100" height="58"/>
+  <text class="text small" x="296" y="518" text-anchor="middle">恢复</text>
+
+  <rect class="panel" x="416" y="164" width="360" height="174"/>
+  <text class="text mid" x="596" y="206" text-anchor="middle">计划与范围</text>
+  <text class="text small" x="448" y="248">对象：订单服务生产发布</text>
+  <text class="text small" x="448" y="282">动作：只读审查，暂不写入</text>
+  <text class="text small" x="448" y="316">停止点：创建工单前再次确认</text>
+
+  <rect class="panel" x="824" y="164" width="332" height="174"/>
+  <text class="text mid" x="990" y="206" text-anchor="middle">进度状态</text>
+  <text class="text small" x="856" y="248">已完成：读取迁移说明</text>
+  <text class="text small" x="856" y="282">当前：查询最新发布制度</text>
+  <text class="text small" x="856" y="316">下一事件：Tool 返回或超时</text>
+
+  <rect class="accent" x="416" y="376" width="360" height="184"/>
+  <text class="text mid" x="596" y="418" text-anchor="middle">批准预览</text>
+  <text class="text small" x="448" y="460">能力：创建草稿变更单</text>
+  <text class="text small" x="448" y="494">影响：不会发布，不会改生产</text>
+  <text class="text small" x="448" y="528">有效期：10 分钟，参数变更失效</text>
+
+  <rect class="panel" x="824" y="376" width="332" height="184"/>
+  <text class="text mid" x="990" y="418" text-anchor="middle">证据与未知</text>
+  <text class="text small" x="856" y="460">事实：制度 REL-005 已命中</text>
+  <text class="text small" x="856" y="494">判断：字段删除风险较高</text>
+  <text class="text small" x="856" y="528">未知：缺少恢复演练记录</text>
+
+  <path class="line" d="M346 268 L416 248"/>
+  <path class="line" d="M346 350 L416 286"/>
+  <path class="line" d="M346 432 L416 468"/>
+  <path class="line" d="M776 252 L824 252"/>
+  <path class="line" d="M776 476 L824 476"/>
+
+  <text class="text small" x="640" y="620" text-anchor="middle">批准表达“我同意这个计划”，授权仍由业务系统在执行前重新校验。</text>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">AI Agent 系统总览图</title>
+  <desc id="desc">中文架构图，展示用户目标、Harness、模型、Skill、MCP、RAG、Memory、A2A 和质量治理之间的关系。</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f9fb; }
+      .panel { fill: #ffffff; stroke: #c9d4df; stroke-width: 2; rx: 18; }
+      .core { fill: #1f6feb; stroke: #134b9a; stroke-width: 2; rx: 20; }
+      .model { fill: #2da44e; stroke: #1a7f37; stroke-width: 2; rx: 18; }
+      .method { fill: #fff5cc; stroke: #d4a72c; stroke-width: 2; rx: 16; }
+      .data { fill: #e7f5ff; stroke: #74b9e7; stroke-width: 2; rx: 16; }
+      .risk { fill: #ffecec; stroke: #e5534b; stroke-width: 2; rx: 16; }
+      .text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #1f2328; }
+      .white { fill: #ffffff; }
+      .small { font-size: 22px; }
+      .mid { font-size: 28px; font-weight: 700; }
+      .big { font-size: 36px; font-weight: 700; }
+      .line { fill: none; stroke: #64748b; stroke-width: 3; marker-end: url(#arrow); }
+      .thin { fill: none; stroke: #94a3b8; stroke-width: 2.5; marker-end: url(#arrowSoft); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowSoft" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+  <text class="text big" x="640" y="58" text-anchor="middle">AI Agent 系统：模型不是单独行动者</text>
+  <text class="text small" x="640" y="94" text-anchor="middle">Harness 组织上下文、权限、工具、循环和证据；模型提出判断与动作提议</text>
+
+  <rect class="panel" x="66" y="150" width="196" height="94"/>
+  <text class="text mid" x="164" y="188" text-anchor="middle">用户目标</text>
+  <text class="text small" x="164" y="220" text-anchor="middle">任务、限制、反馈</text>
+
+  <rect class="core" x="430" y="138" width="420" height="170"/>
+  <text class="white big" x="640" y="194" text-anchor="middle">Harness / Runtime</text>
+  <text class="white small" x="640" y="234" text-anchor="middle">组装上下文 · 控制循环 · 校验授权</text>
+  <text class="white small" x="640" y="268" text-anchor="middle">调度工具 · 记录 Trace · 判断终态</text>
+
+  <rect class="model" x="500" y="368" width="280" height="112"/>
+  <text class="white mid" x="640" y="408" text-anchor="middle">模型</text>
+  <text class="white small" x="640" y="440" text-anchor="middle">理解、规划、生成</text>
+  <text class="white small" x="640" y="468" text-anchor="middle">提出动作提议</text>
+
+  <rect class="method" x="92" y="340" width="238" height="98"/>
+  <text class="text mid" x="211" y="380" text-anchor="middle">Skill</text>
+  <text class="text small" x="211" y="412" text-anchor="middle">可发现的做事方法</text>
+
+  <rect class="data" x="92" y="536" width="238" height="98"/>
+  <text class="text mid" x="211" y="576" text-anchor="middle">RAG / Memory</text>
+  <text class="text small" x="211" y="608" text-anchor="middle">证据选择与状态召回</text>
+
+  <rect class="data" x="950" y="340" width="238" height="98"/>
+  <text class="text mid" x="1069" y="380" text-anchor="middle">MCP / Tool</text>
+  <text class="text small" x="1069" y="412" text-anchor="middle">外部能力与受控动作</text>
+
+  <rect class="method" x="950" y="536" width="238" height="98"/>
+  <text class="text mid" x="1069" y="576" text-anchor="middle">A2A / 子 Agent</text>
+  <text class="text small" x="1069" y="608" text-anchor="middle">长任务委派与产物交换</text>
+
+  <rect class="risk" x="462" y="592" width="356" height="80"/>
+  <text class="text mid" x="640" y="628" text-anchor="middle">质量、安全与用途治理</text>
+  <text class="text small" x="640" y="656" text-anchor="middle">评测 · 审批 · 数据边界 · 回滚</text>
+
+  <path class="line" d="M262 197 L430 197"/>
+  <text class="text small" x="346" y="176" text-anchor="middle">提交任务</text>
+  <path class="line" d="M640 308 L640 368"/>
+  <text class="text small" x="696" y="344" text-anchor="middle">模型请求</text>
+  <path class="line" d="M640 480 L640 592"/>
+  <text class="text small" x="720" y="552" text-anchor="middle">验证完成声明</text>
+
+  <path class="thin" d="M430 250 H360 V389 H330"/>
+  <text class="text small" x="382" y="340" text-anchor="middle">加载方法</text>
+  <path class="thin" d="M430 278 H382 V585 H330"/>
+  <text class="text small" x="408" y="514" text-anchor="middle">取证据</text>
+  <path class="thin" d="M850 250 H906 V389 H950"/>
+  <text class="text small" x="884" y="340" text-anchor="middle">调用能力</text>
+  <path class="thin" d="M850 278 H898 V585 H950"/>
+  <text class="text small" x="890" y="514" text-anchor="middle">委派任务</text>
+</svg>

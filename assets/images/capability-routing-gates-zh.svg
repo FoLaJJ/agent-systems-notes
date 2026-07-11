@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">能力路由三道门中文图</title>
+  <desc id="desc">中文架构图，展示 Skill、Tool、MCP 与 A2A 能力从发现、候选裁剪、暴露、选择到选中后处理的三道门。</desc>
+  <defs>
+    <style>
+      .bg { fill: #fbfcfe; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 16; }
+      .gate { fill: #e7f0ff; stroke: #1f6feb; stroke-width: 2; rx: 18; }
+      .warn { fill: #fff5cc; stroke: #d4a72c; stroke-width: 2; rx: 16; }
+      .type { fill: #e8f7ed; stroke: #2da44e; stroke-width: 2; rx: 16; }
+      .deny { fill: #ffecec; stroke: #e5534b; stroke-width: 2; rx: 16; }
+      .text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #1f2328; }
+      .small { font-size: 22px; }
+      .mid { font-size: 28px; font-weight: 700; }
+      .big { font-size: 36px; font-weight: 700; }
+      .line { fill: none; stroke: #64748b; stroke-width: 3; marker-end: url(#arrow); }
+      .soft { fill: none; stroke: #94a3b8; stroke-width: 2.5; marker-end: url(#arrowSoft); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowSoft" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+  <text class="text big" x="640" y="58" text-anchor="middle">能力路由：先控暴露，再控执行</text>
+  <text class="text small" x="640" y="94" text-anchor="middle">Skill、Tool、MCP、A2A 可以共享治理方法，但选中后的语义必须分开处理</text>
+
+  <rect class="box" x="62" y="152" width="178" height="108"/>
+  <text class="text mid" x="151" y="196" text-anchor="middle">发现</text>
+  <text class="text small" x="151" y="228" text-anchor="middle">元数据与来源</text>
+
+  <rect class="box" x="284" y="152" width="204" height="108"/>
+  <text class="text mid" x="386" y="196" text-anchor="middle">注册表</text>
+  <text class="text small" x="386" y="228" text-anchor="middle">身份、版本、风险</text>
+
+  <rect class="gate" x="532" y="132" width="216" height="148"/>
+  <text class="text mid" x="640" y="180" text-anchor="middle">第一道门</text>
+  <text class="text small" x="640" y="214" text-anchor="middle">资格与暴露</text>
+  <text class="text small" x="640" y="246" text-anchor="middle">身份 · 阶段 · 风险</text>
+
+  <rect class="warn" x="808" y="152" width="188" height="108"/>
+  <text class="text mid" x="902" y="196" text-anchor="middle">候选集</text>
+  <text class="text small" x="902" y="228" text-anchor="middle">最小充分</text>
+
+  <rect class="gate" x="1046" y="132" width="190" height="148"/>
+  <text class="text mid" x="1141" y="180" text-anchor="middle">第二道门</text>
+  <text class="text small" x="1141" y="214" text-anchor="middle">相关性选择</text>
+  <text class="text small" x="1141" y="246" text-anchor="middle">任务匹配</text>
+
+  <rect class="warn" x="534" y="332" width="212" height="84"/>
+  <text class="text mid" x="640" y="384" text-anchor="middle">选中能力类型</text>
+
+  <rect class="type" x="112" y="474" width="246" height="116"/>
+  <text class="text mid" x="235" y="520" text-anchor="middle">Skill / Resource</text>
+  <text class="text small" x="235" y="554" text-anchor="middle">上下文加载门</text>
+
+  <rect class="type" x="517" y="474" width="246" height="116"/>
+  <text class="text mid" x="640" y="520" text-anchor="middle">Tool / MCP</text>
+  <text class="text small" x="640" y="554" text-anchor="middle">参数与授权门</text>
+
+  <rect class="type" x="922" y="474" width="246" height="116"/>
+  <text class="text mid" x="1045" y="520" text-anchor="middle">A2A / Agent</text>
+  <text class="text small" x="1045" y="554" text-anchor="middle">委派与取消门</text>
+
+  <rect class="deny" x="474" y="628" width="332" height="58"/>
+  <text class="text mid" x="640" y="666" text-anchor="middle">第三道门：选中后再校验</text>
+
+  <path class="line" d="M240 206 L284 206"/>
+  <path class="line" d="M488 206 L532 206"/>
+  <path class="line" d="M748 206 L808 206"/>
+  <path class="line" d="M996 206 L1046 206"/>
+  <path class="line" d="M1141 280 V374 H746"/>
+  <path class="soft" d="M640 416 V474"/>
+  <path class="soft" d="M640 416 H235 V474"/>
+  <path class="soft" d="M640 416 H1045 V474"/>
+  <path class="soft" d="M235 590 V657 H474"/>
+  <path class="soft" d="M640 590 V628"/>
+  <path class="soft" d="M1045 590 V657 H806"/>
+
+  <text class="text small" x="640" y="314" text-anchor="middle">自然语言描述帮助选择，不能替代权限判断</text>
+  <text class="text small" x="640" y="452" text-anchor="middle">不同能力选中后进入不同处理门</text>
+</svg>

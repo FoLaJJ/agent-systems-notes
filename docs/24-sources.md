@@ -1,6 +1,6 @@
 # 24. 官方来源、事实标签与版本基线
 
-> 核对日期：2026-07-10，时区：Asia/Shanghai。本页优先收录规范维护方和产品维护方的一手资料。外部页面会变化；固定版本规范与滚动产品文档采用不同维护方式。
+> 核对日期：2026-07-10，时区：Asia/Shanghai。优先收录规范官网和产品官方资料。外部页面会变化；固定版本规范与滚动产品文档采用不同复核方式。
 
 ## 事实标签
 
@@ -10,21 +10,21 @@
 | `[平台]` | 某 Harness 当前官方实现、目录、命令或 UI 行为 | 链接产品官方文档并写核对日期；必要时记录最低版本 | Gemini 激活确认、VS Code `mcp.json` |
 | `[研究]` | 学术论文、机构研究或公开实验提出的方法与观察 | 链接原始论文或研究页；说明论文展示了什么，不把研究原型冒充产品规范 | RAG、ReAct、Toolformer |
 | `[实测]` | 团队在注明环境中重复观察到的行为 | 记录日期、Harness/模型版本、配置、输入、期望和原始结果摘要 | 声明支持的 Harness 是否自动触发同一 Skill |
-| `[建议]` | 本教程基于风险与维护成本给出的工程取舍 | 说明适用边界，不使用规范性大写术语冒充标准 | Portable Core Profile、五层质量门 |
+| `[建议]` | 基于风险与成本给出的工程取舍 | 说明适用边界，不使用规范性大写术语冒充标准 | Portable Core Profile、五层质量门 |
 
 标签可以组合。例如“`[平台][实测]` 官方文档说明支持某路径，并在指定版本复现”。没有来源的观察不能标成 `[规范]`、`[平台]` 或 `[研究]`。
 
 ## 版本基线
 
-| 对象 | 本教程基线 | 状态解释 | 生产使用规则 |
+| 对象 | 稳定基线 | 状态解释 | 生产使用规则 |
 | --- | --- | --- | --- |
 | Agent Skills | 2026-07-10 核对的开放规范当前内容 | 规范网站目前使用滚动页面，不提供与 MCP 相同的日期版本 URI | 核心只依赖 `name`、`description`、`SKILL.md` 和相对资源等开放语义；发布时保存核对日期，并固定规范仓库 commit 或归档快照 |
-| MCP | `2025-11-25` | 官方版本页称其为 **Current**；本文“稳定基线”指可用于当前实现，不把它误写为已冻结的 Final | 示例、测试和兼容声明只依赖该版本；协商时仍按规范选择双方共同版本 |
+| MCP | `2025-11-25` | 官方 Versioning 页面称其为 **Current**；这里的“稳定基线”指可用于当前实现，不把它误写为已冻结的 Final | 示例、测试和兼容声明只依赖该版本；协商时仍按规范选择双方共同版本 |
 | MCP Draft/RC | Draft（草案）与 `2026-07-28-RC`（Release Candidate，候选发布） | 预发布、可能继续变化 | 只作前瞻分析；独立分支、独立测试，不进入稳定兼容声明 |
 | A2A | 固定来源快照 `v1.0.1`（2026-05-28）；线缆协议版本 `1.0` | 官方项目已发布 1.0 系列；补丁版本修正规范/实现，但不进入请求、响应、Agent Card 或版本协商；`latest` 文档仍是滚动入口 | 兼容声明同时记录协议版本 `1.0`、具体规范/SDK 快照、接口绑定和通过的任务生命周期，不只写“支持 A2A” |
 | Harness | 2026-07-10 官方文档 | 多为滚动产品文档，行为可能随 CLI/扩展版本变化 | 每次发布记录实际版本并重跑行为合同 |
 
-`[规范]` MCP 版本页使用 `YYYY-MM-DD` 标识最后一次不向后兼容变更，并把修订分为 Draft、Current、Final。协议协商必须选择单一共同版本。参见 [S07](#s07-mcp-版本策略)。
+`[规范]` MCP Versioning 页面使用 `YYYY-MM-DD` 标识最后一次不向后兼容变更，并把修订分为 Draft、Current、Final。协议协商必须选择单一共同版本。参见 [S07](#s07-mcp-版本策略)。
 
 `[建议]` 文档中“支持 MCP”必须展开成协议版本、传输、原语、授权模式和通过的 Harness。只验证一个 Tool 的 stdio 调用时，正确表述是“在指定 Harness 中通过 `2025-11-25` Tools/stdio 行为合同”。
 
@@ -58,7 +58,7 @@ flowchart TD
 - BDI 代表工作：[BDI Agents: From Theory to Practice](https://cdn.aaai.org/ICMAS/1995/ICMAS95-042.pdf)，1995。
 - 智能体与多智能体代表性综述：[Intelligent agents: theory and practice](https://doi.org/10.1017/S0269888900008122)，1995。
 - 强化学习代表性教材：[Reinforcement Learning: An Introduction, Second Edition](https://incompleteideas.net/book/the-book-2nd.html)，2018；其研究传统早于 LLM Agent。
-- 用于证明：状态、动作、目标、BDI、环境反馈、自主性与多智能体研究远早于现代 LLM；本教程从 2017 年开始的时间线只聚焦 LLM Agent 工程，不是整个领域的起点。这是一组范围锚点，不是完整经典 Agent 史。
+- 用于证明：状态、动作、目标、BDI、环境反馈、自主性与多智能体研究远早于现代 LLM；从 2017 年开始的时间线只聚焦 LLM Agent 工程，不是整个领域的起点。这是一组范围锚点，不是完整经典 Agent 史。
 
 ### A00A 任务型对话与语义接口前史
 
@@ -142,7 +142,7 @@ flowchart TD
 - Federated Wiki 项目入口：[About Federated Wiki](https://fedwiki.org/view/about-federated-wiki)
 - WikiWikiWeb 历史入口：[WikiWikiWeb](https://wiki.c2.com/?WikiWikiWeb)
 - 用于证明：Wiki 传统强调由人维护、链接和演进的知识页面；在 Agent 系统中，它更适合作为知识治理和可引用来源层，而不是直接替代运行时检索与上下文注入。
-- 注意：本文只采用 Wiki/知识库作为工程类比和知识治理建议，不声称某一种 Wiki 产品本身就是 Agent Runtime 或 RAG 协议。
+- 注意：这里只采用 Wiki/知识库作为工程类比和知识治理建议，不声称某一种 Wiki 产品本身就是 Agent Runtime 或 RAG 协议。
 
 ### A09 LLM-as-a-Judge
 
@@ -322,7 +322,7 @@ flowchart TD
 - 固定发布：[A2A `v1.0.0`](https://github.com/a2aproject/A2A/releases/tag/v1.0.0)、[`v1.0.1`](https://github.com/a2aproject/A2A/releases/tag/v1.0.1)
 - 固定规范正文：[`v1.0.1` specification.md](https://github.com/a2aproject/A2A/blob/v1.0.1/docs/specification.md)、[`v1.0.1` a2a.proto](https://github.com/a2aproject/A2A/blob/v1.0.1/specification/a2a.proto)
 - 用于证明：Agent Card、Message、Task、Artifact、流式更新、取消等 Agent 间协作语义，以及 A2A 与 MCP 的互补边界。
-- 注意：`v1.0.1` 是固定仓库补丁快照，线缆协议版本仍是 `1.0`；固定 `specification.md` 页首版本文字没有同步反映补丁 tag，因此协议枚举与绑定细节同时以该 tag 的 Proto 核对。
+- 注意：`v1.0.1` 是固定仓库补丁快照，线缆协议版本仍是 `1.0`；固定 `specification.md` 页首标注没有同步反映补丁 tag，因此协议枚举与绑定细节同时以该 tag 的 Proto 核对。
 - 注意：`latest` 是滚动入口；发布兼容声明时必须记录具体版本和访问日期。
 
 ### P03 OpenTelemetry GenAI 语义约定
@@ -454,7 +454,7 @@ flowchart TD
 
 - 官方链接：[Connect Claude Code to tools via MCP](https://code.claude.com/docs/en/mcp)
 - 用于证明：MCP 传输、作用域、`.mcp.json`、`claude mcp`、项目 Server 审批、环境变量展开与 `${CLAUDE_PROJECT_DIR:-.}` 带默认值语法。
-- 注意：WebSocket 等产品扩展不进入本教程稳定传输交集。
+- 注意：WebSocket 等产品扩展不进入稳定传输交集。
 
 ### S15 OpenAI Codex MCP
 
@@ -519,11 +519,11 @@ flowchart TD
 
 - 官方法律文书：[Recommendation of the Council on Artificial Intelligence](https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0449)
 - 用于证明：以人权与民主价值、公平、透明与可解释、稳健安全和问责等为核心的跨政府原则。
-- 注意：原则提供治理方向，不替代具体司法辖区、行业和劳动关系要求；本文不据此给出法律意见。
+- 注意：原则提供治理方向，不替代具体司法辖区、行业和劳动关系要求；这里不据此给出法律意见。
 
 ### G03 Human-AI Interaction Guidelines
 
-- 论文与维护方页面见 [A18](#a18-人机交互设计)。
+- 论文与项目页面见 [A18](#a18-人机交互设计)。
 - 用于证明：让系统在交互开始、运行中、错误发生和用户纠正时分别支持适当理解与控制的设计框架。
 - 注意：交互设计还需结合本地用户研究、无障碍要求、任务风险与 Runtime 真实状态，不能由模型自由生成进度代替。
 
@@ -584,7 +584,7 @@ flowchart TD
 - 用途：观察模型调用、Agent、Tool、检索和生成式 AI 事件的跨系统观测命名趋势。
 - 禁止：Development 状态字段不能直接当作长期稳定日志合同；采用时必须固定版本并说明字段映射。
 
-## 如何维护本页
+## 版本复核流程
 
 每次季度复核或重大版本发布时执行：
 
@@ -599,7 +599,7 @@ flowchart TD
 9. 检查所有外链、相对链接、代码围栏和 Mermaid 渲染；
 10. 如果稳定规范未改变，只更新平台行为时，不扩大协议兼容声明。
 
-新增来源必须说明“它证明什么”和“它不证明什么”。删除失效来源前，先找到同一维护方的替代页；若没有替代页，将对应事实降级为 `[实测]` 或移除，不用第三方转载冒充官方依据。
+新增来源必须说明“它证明什么”和“它不证明什么”。删除失效来源前，先找到同一官方渠道的替代页；若没有替代页，将对应事实降级为 `[实测]` 或移除，不用第三方转载冒充官方依据。
 
 ## 引用模板
 

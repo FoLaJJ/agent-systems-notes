@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Skill 与 MCP 职责边界中文图</title>
+  <desc id="desc">中文对照图，展示 Skill 负责方法、MCP 负责外部能力，Harness 负责授权、调度和结果回填。</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f9fb; }
+      .panel { fill: #ffffff; stroke: #c9d4df; stroke-width: 2; rx: 18; }
+      .skill { fill: #fff5cc; stroke: #d4a72c; stroke-width: 2; rx: 18; }
+      .mcp { fill: #e7f5ff; stroke: #1f6feb; stroke-width: 2; rx: 18; }
+      .runtime { fill: #e8f7ed; stroke: #2da44e; stroke-width: 2; rx: 18; }
+      .risk { fill: #ffecec; stroke: #e5534b; stroke-width: 2; rx: 16; }
+      .text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif; fill: #1f2328; }
+      .small { font-size: 22px; }
+      .mid { font-size: 28px; font-weight: 700; }
+      .big { font-size: 36px; font-weight: 700; }
+      .line { fill: none; stroke: #64748b; stroke-width: 3; marker-end: url(#arrow); }
+      .soft { fill: none; stroke: #94a3b8; stroke-width: 2.5; marker-end: url(#arrowSoft); }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowSoft" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+  <text class="text big" x="640" y="58" text-anchor="middle">Skill 管方法，MCP 管能力</text>
+  <text class="text small" x="640" y="94" text-anchor="middle">二者组合时，不能让过程合同和外部数据源互相越权</text>
+
+  <rect class="panel" x="62" y="158" width="230" height="112"/>
+  <text class="text mid" x="177" y="202" text-anchor="middle">发布材料</text>
+  <text class="text small" x="177" y="236" text-anchor="middle">代码、工单、回滚</text>
+
+  <rect class="runtime" x="516" y="138" width="248" height="152"/>
+  <text class="text mid" x="640" y="188" text-anchor="middle">Harness</text>
+  <text class="text small" x="640" y="222" text-anchor="middle">发现 · 授权 · 调度</text>
+  <text class="text small" x="640" y="254" text-anchor="middle">组装上下文 · 回填结果</text>
+
+  <rect class="panel" x="906" y="158" width="230" height="112"/>
+  <text class="text mid" x="1021" y="202" text-anchor="middle">制度库</text>
+  <text class="text small" x="1021" y="236" text-anchor="middle">受控外部证据</text>
+
+  <rect class="skill" x="94" y="390" width="342" height="160"/>
+  <text class="text mid" x="265" y="438" text-anchor="middle">Skill：过程合同</text>
+  <text class="text small" x="265" y="472" text-anchor="middle">检查顺序、证据规则</text>
+  <text class="text small" x="265" y="504" text-anchor="middle">评分、降级、输出格式</text>
+  <text class="text small" x="265" y="536" text-anchor="middle">不持有外部系统权限</text>
+
+  <rect class="mcp" x="844" y="390" width="342" height="160"/>
+  <text class="text mid" x="1015" y="438" text-anchor="middle">MCP：能力合同</text>
+  <text class="text small" x="1015" y="472" text-anchor="middle">Tool 名称、Schema</text>
+  <text class="text small" x="1015" y="504" text-anchor="middle">空结果、错误、来源</text>
+  <text class="text small" x="1015" y="536" text-anchor="middle">不决定业务结论</text>
+
+  <rect class="panel" x="500" y="400" width="280" height="114"/>
+  <text class="text mid" x="640" y="444" text-anchor="middle">模型</text>
+  <text class="text small" x="640" y="478" text-anchor="middle">提出调用，综合证据</text>
+
+  <rect class="risk" x="474" y="602" width="332" height="70"/>
+  <text class="text mid" x="640" y="646" text-anchor="middle">最终结论来自组合证据</text>
+
+  <path class="line" d="M292 214 L516 214"/>
+  <text class="text small" x="404" y="188" text-anchor="middle">材料进入上下文</text>
+  <path class="line" d="M764 214 L906 214"/>
+  <text class="text small" x="835" y="188" text-anchor="middle">只读查询</text>
+
+  <path class="soft" d="M640 290 V336 H265 V390"/>
+  <path class="soft" d="M640 290 V336 H1015 V390"/>
+  <text class="text small" x="640" y="352" text-anchor="middle">方法与能力通过 Harness 连接</text>
+
+  <path class="soft" d="M436 470 H500"/>
+  <path class="soft" d="M844 470 H780"/>
+  <path class="line" d="M640 514 V602"/>
+</svg>

@@ -1,10 +1,12 @@
 # 03. 先认识 Agent、Skill 与 MCP
 
-> 本章面向第一次系统接触 Agent 工程的读者。读完后，你应该能回答三个问题：Agent 到底由什么组成，Skill 与 MCP 为什么会出现，以及一段方法或一份外部数据究竟怎样进入模型上下文。文中的 `[规范]`、`[平台]`、`[建议]` 只在需要区分事实层次时出现，含义见[来源索引](24-sources.md#事实标签)。
+> 目标是回答三个基础问题：Agent 到底由什么组成，Skill 与 MCP 为什么会出现，以及一段方法或一份外部数据究竟怎样进入模型上下文。文中的 `[规范]`、`[平台]`、`[建议]` 只在需要区分事实层次时出现，含义见[来源索引](24-sources.md#事实标签)。
+
+![AI Agent 系统总览图](../assets/images/agent-system-map-zh.svg)
 
 ## 从一次发布审查说起
 
-周五下午，你对公司的代码 Agent 说：
+周五下午，发布负责人向代码 Agent 提出请求：
 
 > 帮我审查这次生产发布，告诉我有哪些风险，并确认它是否符合公司最新发布制度。
 
@@ -14,7 +16,7 @@
 2. 查询公司当前有效的发布制度，而不是依赖模型训练时见过的旧资料；
 3. 在权限允许的范围内读取代码和变更记录，最后给出有证据的结论。
 
-可以把这个过程想象成一位新同事在办公室里办事：
+这个过程类似一位新同事在办公室里办事：
 
 | 办公室中的角色或物品 | Agent 系统中的对应物 | 负责什么 |
 | --- | --- | --- |
@@ -32,7 +34,7 @@
 
 模型，通常指大语言模型，也就是根据已有上下文理解需求、生成文字或提出工具调用的计算核心。它很擅长概括、比较、规划和生成代码，但它并不天然知道：
 
-- 你的仓库在电脑的哪个目录；
+- 目标仓库在电脑的哪个目录；
 - 公司今天更新了哪条制度；
 - 当前允许读取哪些文件；
 - 一个命令是否已经执行成功；
@@ -94,7 +96,7 @@ flowchart LR
 
 ### Agent：模型加上环境之后形成的行动者
 
-Agent 可以理解为“能够围绕目标连续观察、判断和行动的系统”。在本教程中，我们用下面这个简化关系建立直觉：
+Agent 可以理解为“能够围绕目标连续观察、判断和行动的系统”。这里用下面这个简化关系建立直觉：
 
 ```text
 Agent = 模型 + Harness 提供的上下文、工具和执行循环
@@ -113,7 +115,7 @@ Agent = 模型 + Harness 提供的上下文、工具和执行循环
 
 Skill 和 MCP 并不是凭空出现的两个新名词。它们分别回应了 Agent 应用发展中反复出现的两类问题：**做事方法怎样复用**，以及**外部系统怎样连接**。
 
-本章只沿着 Skill 与 MCP 这两条线建立基础。更完整的历史见[AI Agent 全景与演进史](01-agent-evolution.md)；模型怎样用结构化消息提出工具调用，见[Function Calling 与 Tool Use](04-function-calling.md)。
+这里先沿着 Skill 与 MCP 这两条线建立基础。更完整的历史见[AI Agent 全景与演进史](01-agent-evolution.md)；模型怎样用结构化消息提出工具调用，见[Function Calling 与 Tool Use](04-function-calling.md)。
 
 ### 第一阶段：把所有要求都写进长 Prompt
 
@@ -152,7 +154,7 @@ flowchart LR
 
 这不是严格的替代时间线。长 Prompt、项目指令、函数调用和专用接口今天仍然有各自用途；在开放标准出现之前，业界也早已有类似的技能包与协议化连接思想。历史的关键不是“旧技术消失了”，而是职责逐渐被拆清楚了。
 
-`[平台]` Anthropic 于 [2024 年 11 月 25 日公开发布 MCP](https://www.anthropic.com/news/model-context-protocol)，并在 [2025 年 10 月 16 日的工程文章](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)中系统介绍 Agent Skills 的设计。`[规范]` 本教程讨论的 Skill 结构以 [Agent Skills 开放规范](https://agentskills.io/specification)为依据；MCP 协议细节以 [`2025-11-25` 稳定规范](https://modelcontextprotocol.io/specification/2025-11-25)为基线。日期用于说明公开演进过程，不表示这些思想此前从未存在。
+`[平台]` Anthropic 于 [2024 年 11 月 25 日公开发布 MCP](https://www.anthropic.com/news/model-context-protocol)，并在 [2025 年 10 月 16 日的工程文章](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)中系统介绍 Agent Skills 的设计。`[规范]` 本系列讨论的 Skill 结构以 [Agent Skills 开放规范](https://agentskills.io/specification)为依据；MCP 协议细节以 [`2025-11-25` 稳定规范](https://modelcontextprotocol.io/specification/2025-11-25)为基线。日期用于说明公开演进过程，不表示这些思想此前从未存在。
 
 ## 一张图建立三层直觉
 
@@ -184,7 +186,7 @@ flowchart TB
 1. **Skill 与 MCP 通常不是二选一。** Skill 可以要求先识别发布变更，再通过 MCP 查询制度，最后将事实与规则逐项比对。
 2. **两者都不能代替 Harness。** Skill 不会自行获得文件权限，MCP Server 也不能自行决定把结果放进哪一轮模型上下文。
 
-`[规范]` Agent Skills 以包含 `SKILL.md` 的目录包表达一套能力，至少使用 `name` 和 `description` 供兼容实现发现。MCP 则用 Host、Client、Server 描述通信参与方，并可由 Server 提供 Tools、Resources 和 Prompts。`[建议]` 为了便于跨平台讨论，本教程将 Harness 视为具体产品的 Agent 运行层，将 MCP 规范中的 Host 视为其中负责管理 MCP Client、权限和上下文的角色；日常口语里两者有时会被混用，但讨论协议边界时应分清。
+`[规范]` Agent Skills 以包含 `SKILL.md` 的目录包表达一套能力，至少使用 `name` 和 `description` 供兼容实现发现。MCP 则用 Host、Client、Server 描述通信参与方，并可由 Server 提供 Tools、Resources 和 Prompts。`[建议]` 为了便于跨平台讨论，本系列将 Harness 视为具体产品的 Agent 运行层，将 MCP 规范中的 Host 视为其中负责管理 MCP Client、权限和上下文的角色；日常口语里两者有时会被混用，但讨论协议边界时应分清。
 
 ## 上下文：模型这一刻真正拿到的材料
 
@@ -374,16 +376,16 @@ flowchart LR
     L --> O["有证据的风险审查结果"]
 ```
 
-这也体现了本教程区别于“照着配置跑通即可”的核心思路：
+这也体现了区别于“照着配置跑通即可”的核心思路：
 
 - 不把模型、Agent 和 Harness 混成一个黑盒，而是追踪谁发现、谁选择、谁执行、谁授权；
 - 不把 Skill 当成长 Prompt，而是把它视为可发现、按需加载的过程知识；
 - 不把 MCP 当作万能知识层，而是把它视为受 Host 管理的能力交换边界；
 - 不追求不同 Harness 的配置文件原样相同，而是追求相同任务中的行为和安全边界等价。
 
-## 本章小结
+## 关键结论
 
-你现在只需要记住五句话：
+核心结论可以压缩成五句话：
 
 1. **模型负责理解和推理，Harness 负责把模型变成能持续工作的 Agent。**
 2. **Skill 主要封装“这类任务怎样做”，并通过渐进披露控制上下文成本。**
@@ -391,7 +393,7 @@ flowchart LR
 4. **Prompt、项目指令、Skill、MCP 与 Plugin 处在不同职责层，可以组合，不必争夺唯一答案。**
 5. **能力被发现、进入候选、被模型选择和获准执行是四个不同状态。**
 
-如果还不清楚模型为什么能按上下文生成 Tool Call、又为什么会流畅地犯错，先读[LLM 能力底座](02-model-capabilities.md)。接下来可以沿基础层继续学习：[Function Calling 与 Tool Use](04-function-calling.md)解释模型怎样提出动作，[Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)解释 Harness 怎样控制执行，[Context Engineering、RAG 与 Memory](06-context-rag-memory.md)解释每一步怎样准备信息，[Multi-Agent 与 A2A](07-multi-agent-a2a.md)解释跨 Agent 委派，[能力发现与路由](08-capability-discovery-routing.md)解释这些能力怎样进入最小候选集，[人机协作与可控交互](09-human-agent-interaction.md)解释用户怎样理解、纠正和控制整个过程。
+若需要先理解模型为什么能按上下文生成 Tool Call、又为什么会流畅地犯错，可先读[LLM 能力底座](02-model-capabilities.md)。基础层的后续章节包括：[Function Calling 与 Tool Use](04-function-calling.md)解释模型怎样提出动作，[Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)解释 Harness 怎样控制执行，[Context Engineering、RAG 与 Memory](06-context-rag-memory.md)解释每一步怎样准备信息，[Multi-Agent 与 A2A](07-multi-agent-a2a.md)解释跨 Agent 委派，[能力发现与路由](08-capability-discovery-routing.md)解释这些能力怎样进入最小候选集，[人机协作与可控交互](09-human-agent-interaction.md)解释用户怎样理解、纠正和控制整个过程。
 
 完成基础层后再进入[高质量 Skills 制作](10-skills.md)或[高质量 MCP 制作](11-mcp.md)，会更容易理解为什么 Skill 负责方法、MCP 负责连接，而 Function Calling 与 Harness 负责把一次动作真正串起来。
 
