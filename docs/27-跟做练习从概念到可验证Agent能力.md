@@ -60,7 +60,7 @@ flowchart LR
 | MCP 不等于 Agent | MCP Server 返回能力或数据，不决定最终发布建议 |
 | 结果可追溯 | 输出前必须有证据来源和未知项 |
 
-**停止条件：** 如果图中出现“模型直接调用数据库”或“Tool 可见等于已授权”，先回读[03](03-foundations.md)和[04](04-function-calling.md)。
+**停止条件：** 如果图中出现“模型直接调用数据库”或“Tool 可见等于已授权”，先回读[03](03-Agent-Skill-MCP基础关系.md)和[04](04-Function-Calling与Tool-Use.md)。
 
 ## 练习 2：写一个最小发布风险审查 Skill
 
@@ -93,7 +93,7 @@ release-risk-review/
 | “数据库字段删除能不能上” | 应触发，并要求制度或证据核实 |
 | “直接帮我发布” | 不应直接执行发布动作 |
 
-**参考：** [10. 从零制作一个高质量 Agent Skill](10-skills.md)、[16. 示例：发布风险审查 Skill](16-example-release-risk-review-skill.md)。
+**参考：** [10. 从零制作一个高质量 Agent Skill](10-高质量Agent-Skill制作.md)、[16. 示例：发布风险审查 Skill](16-案例发布风险审查Skill.md)。
 
 ## 练习 3：设计一个只读制度查询 MCP Tool
 
@@ -127,7 +127,7 @@ output:
 
 **停止条件：** 如果 Tool 结果里没有来源版本和观察时间，不进入组合练习。
 
-**参考：** [11. 从零制作一个高质量 MCP Server](11-mcp.md)、[18. 示例：只读发布制度 MCP Server](18-example-policy-knowledge-mcp.md)。
+**参考：** [11. 从零制作一个高质量 MCP Server](11-高质量MCP-Server制作.md)、[18. 示例：只读发布制度 MCP Server](18-案例只读发布制度MCP-Server.md)。
 
 ## 练习 4：把 Skill 与 MCP 组合成一次审查
 
@@ -191,7 +191,7 @@ sequenceDiagram
 4. 如果回答无证据，查 Tool Result 是否回填、来源是否被裁剪。
 5. 如果虚构执行，查 Trace 是否支持“已查询”“已写入”等声明。
 
-**参考：** [19. 示例：Skill 路由评测案例](19-routing-evaluation-cases.md)、[28. Agent 故障排查手册](28-troubleshooting-playbook.md)。
+**参考：** [19. 示例：Skill 路由评测案例](19-案例Skill路由评测.md)、[28. Agent 故障排查手册](28-Agent故障排查手册.md)。
 
 ## 练习完成标准
 
@@ -202,4 +202,4 @@ sequenceDiagram
 | 团队可用 | 有路由评测、失败语义、权限拒绝、Trace 和复核模板 |
 | 生产准备 | 有持久状态、取消恢复、审批、SLO、灰度、回滚和用途治理证据 |
 
-练习产物不是生产认证。准备交付团队时，继续使用[Skill 评审模板](20-skill-review-template.md)、[MCP 评审模板](21-mcp-review-template.md)和[质量工程与安全](13-quality-and-security.md)。
+练习产物不是生产认证。准备交付团队时，继续使用[Skill 评审模板](20-Skill评审模板.md)、[MCP 评审模板](21-MCP评审模板.md)和[质量工程与安全](13-质量工程与安全治理.md)。

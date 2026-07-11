@@ -376,13 +376,13 @@ sequenceDiagram
 
 ## 继续阅读
 
-- [模型、Harness 与上下文注入基础](03-foundations.md)
-- [Function Calling 与工具调用](04-function-calling.md)
-- [Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)
-- [能力发现、候选裁剪与路由](08-capability-discovery-routing.md)
-- [从零制作高质量 Skill](10-skills.md)
-- [从零制作高质量 MCP Server](11-mcp.md)
-- [质量工程与安全](13-quality-and-security.md)
-- [生产级 Agent Runtime 参考架构](15-production-agent-runtime.md)
-- [研究论文与官方来源](24-sources.md)
+- [模型、Harness 与上下文注入基础](03-Agent-Skill-MCP基础关系.md)
+- [Function Calling 与工具调用](04-Function-Calling与Tool-Use.md)
+- [Agent Loop、Workflow 与 Planning](05-Agent循环工作流与规划.md)
+- [能力发现、候选裁剪与路由](08-能力发现候选裁剪与路由.md)
+- [从零制作高质量 Skill](10-高质量Agent-Skill制作.md)
+- [从零制作高质量 MCP Server](11-高质量MCP-Server制作.md)
+- [质量工程与安全](13-质量工程与安全治理.md)
+- [生产级 Agent Runtime 参考架构](15-生产级Agent-Runtime架构.md)
+- [研究论文与官方来源](24-官方来源事实标签与版本基线.md)
 

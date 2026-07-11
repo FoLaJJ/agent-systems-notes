@@ -1,8 +1,8 @@
 # 14. Skill 与 MCP 组合实践
 
-> 贯穿案例：用 [release-risk-review-skill](16-example-release-risk-review-skill.md) 编排发布风险审查，用 [policy-knowledge-mcp](18-example-policy-knowledge-mcp.md) 检索只读发布制度。前者决定“怎样审”，后者只提供“制度中写了什么”。
+> 贯穿案例：用 [release-risk-review-skill](16-案例发布风险审查Skill.md) 编排发布风险审查，用 [policy-knowledge-mcp](18-案例只读发布制度MCP-Server.md) 检索只读发布制度。前者决定“怎样审”，后者只提供“制度中写了什么”。
 
-这一组合运行在更大的 Agent 链路中：模型通过 [Function Calling](04-function-calling.md) 提出查询，Harness 按 [Agent Loop](05-agent-loop-workflows.md)校验、授权并调度，再依据 [Context Engineering](06-context-rag-memory.md)把有限结果回填。[能力路由](08-capability-discovery-routing.md)决定当前步骤先暴露哪些候选。MCP Server 并不直接与模型对话。
+这一组合运行在更大的 Agent 链路中：模型通过 [Function Calling](04-Function-Calling与Tool-Use.md) 提出查询，Harness 按 [Agent Loop](05-Agent循环工作流与规划.md)校验、授权并调度，再依据 [Context Engineering](06-上下文工程RAG与Memory.md)把有限结果回填。[能力路由](08-能力发现候选裁剪与路由.md)决定当前步骤先暴露哪些候选。MCP Server 并不直接与模型对话。
 
 ![Skill 与 MCP 职责边界中文图](../assets/images/skill-mcp-boundary-zh.svg)
 
@@ -68,10 +68,10 @@ flowchart LR
 
 ### Skill 过程合同
 
-[示例 Skill](16-example-release-risk-review-skill.md) 要求：
+[示例 Skill](16-案例发布风险审查Skill.md) 要求：
 
 1. 固定目标版本、环境、基线、证据截止时间和未验证前提；
-2. 读取[风险模型](17-example-release-risk-model.md)；
+2. 读取[风险模型](17-案例发布风险评分模型.md)；
 3. 把证据标记为已验证、间接、过期、缺失或冲突；
 4. 当结论依赖当前制度时，通过语义能力别名 `policy.search` 做只读检索，记录条款 ID、复核日期与适用性；这个名字不是 MCP 标准方法，而是避免核心 Skill 写死平台工具前缀的适配约定；
 5. 对能力不可用、用户拒绝、空结果、错误、过期和冲突分别降级，绝不把无结果解释成没有制度；
@@ -90,7 +90,7 @@ flowchart LR
 }
 ```
 
-当前[业务函数](18-example-policy-knowledge-mcp.md#srcpoliciests)会归一化查询并把 `limit` 限制在 `1` 到 `5`；[Tool 注册代码](18-example-policy-knowledge-mcp.md#srcserverts)的 Schema 则直接拒绝范围外参数。Tool 实现声明返回 `normalizedQuery`、`limit`、`totalMatches`、`items`，匹配项包含 `id`、`title`、`summary`、`requirements`、`tags` 和 `lastReviewed`；无匹配时返回空数组，不生成制度。
+当前[业务函数](18-案例只读发布制度MCP-Server.md#srcpoliciests)会归一化查询并把 `limit` 限制在 `1` 到 `5`；[Tool 注册代码](18-案例只读发布制度MCP-Server.md#srcserverts)的 Schema 则直接拒绝范围外参数。Tool 实现声明返回 `normalizedQuery`、`limit`、`totalMatches`、`items`，匹配项包含 `id`、`title`、`summary`、`requirements`、`tags` 和 `lastReviewed`；无匹配时返回空数组，不生成制度。
 
 Tool 描述明确说明它不能查询实时发布状态，也不能把无结果解释为没有相关制度。注解将其标为只读、非破坏、幂等和封闭世界；`[规范]` 注解仍只是提示，安全决策不能只依赖它。
 
@@ -349,7 +349,7 @@ flowchart LR
     H --> O["最终产物<br/>风险、证据缺口、建议"]
 ```
 
-阅读[跨 Harness 配置](12-cross-harness.md)时，重点看两件事：同一 Skill 目录怎样被发现，以及同一个 `search_release_policy` 能力怎样以最小权限暴露给 Harness。真实落地时再在独立工程中验证 MCP 示例，不把这个仓库变成运行脚本集合。
+阅读[跨 Harness 配置](12-跨Harness适配.md)时，重点看两件事：同一 Skill 目录怎样被发现，以及同一个 `search_release_policy` 能力怎样以最小权限暴露给 Harness。真实落地时再在独立工程中验证 MCP 示例，不把这个仓库变成运行脚本集合。
 
 首次会话依次验证：
 
@@ -412,12 +412,12 @@ flowchart LR
 
 ## 继续阅读
 
-- [Function Calling 与 Tool Use](04-function-calling.md)
-- [Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)
-- [Context Engineering、RAG 与 Memory](06-context-rag-memory.md)
-- [Multi-Agent、委派与 A2A](07-multi-agent-a2a.md)
-- [能力发现、候选裁剪与路由](08-capability-discovery-routing.md)
-- [质量工程与安全](13-quality-and-security.md)
-- [生产级 Agent Runtime 参考架构](15-production-agent-runtime.md)
+- [Function Calling 与 Tool Use](04-Function-Calling与Tool-Use.md)
+- [Agent Loop、Workflow 与 Planning](05-Agent循环工作流与规划.md)
+- [Context Engineering、RAG 与 Memory](06-上下文工程RAG与Memory.md)
+- [Multi-Agent、委派与 A2A](07-Multi-Agent委派与A2A.md)
+- [能力发现、候选裁剪与路由](08-能力发现候选裁剪与路由.md)
+- [质量工程与安全](13-质量工程与安全治理.md)
+- [生产级 Agent Runtime 参考架构](15-生产级Agent-Runtime架构.md)
 
 

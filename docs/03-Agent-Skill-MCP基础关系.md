@@ -1,6 +1,6 @@
 # 03. 先认识 Agent、Skill 与 MCP
 
-> 目标是回答三个基础问题：Agent 到底由什么组成，Skill 与 MCP 为什么会出现，以及一段方法或一份外部数据究竟怎样进入模型上下文。文中的 `[规范]`、`[平台]`、`[建议]` 只在需要区分事实层次时出现，含义见[来源索引](24-sources.md#事实标签)。
+> 目标是回答三个基础问题：Agent 到底由什么组成，Skill 与 MCP 为什么会出现，以及一段方法或一份外部数据究竟怎样进入模型上下文。文中的 `[规范]`、`[平台]`、`[建议]` 只在需要区分事实层次时出现，含义见[来源索引](24-官方来源事实标签与版本基线.md#事实标签)。
 
 ![AI Agent 系统总览图](../assets/images/agent-system-map-zh.svg)
 
@@ -72,7 +72,7 @@ flowchart LR
 
 消息角色表达的是**来源和控制层级**，不是文本自称。网页、工单、Tool Result 或 Memory 中即使出现“忽略之前要求”，也仍然是较低信任的数据。不同厂商对 system、developer、user、assistant、tool 等角色的字段和优先规则不同，但 Harness 都应在组装请求前保留来源边界，不能靠模型从拼接文本里猜。
 
-上下文窗口是一次请求可处理内容的容量上限，不是“全部内容都会被同等理解”的保证。真正有用的是有效上下文：当前目标、必要状态、关键证据、允许动作和停止条件能否在噪声中保持清楚。即使采样参数固定，模型服务和并行工具等因素也可能让轨迹变化，所以行为评测需要重复采样和分布指标。完整的选择、压缩与来源追踪见[06. Context Engineering、RAG 与 Memory](06-context-rag-memory.md)。
+上下文窗口是一次请求可处理内容的容量上限，不是“全部内容都会被同等理解”的保证。真正有用的是有效上下文：当前目标、必要状态、关键证据、允许动作和停止条件能否在噪声中保持清楚。即使采样参数固定，模型服务和并行工具等因素也可能让轨迹变化，所以行为评测需要重复采样和分布指标。完整的选择、压缩与来源追踪见[06. Context Engineering、RAG 与 Memory](06-上下文工程RAG与Memory.md)。
 
 ### Harness：让模型真正工作起来的运行环境
 
@@ -115,7 +115,7 @@ Agent = 模型 + Harness 提供的上下文、工具和执行循环
 
 Skill 和 MCP 并不是凭空出现的两个新名词。它们分别回应了 Agent 应用发展中反复出现的两类问题：**做事方法怎样复用**，以及**外部系统怎样连接**。
 
-这里先沿着 Skill 与 MCP 这两条线建立基础。更完整的历史见[AI Agent 全景与演进史](01-agent-evolution.md)；模型怎样用结构化消息提出工具调用，见[Function Calling 与 Tool Use](04-function-calling.md)。
+这里先沿着 Skill 与 MCP 这两条线建立基础。更完整的历史见[AI Agent 全景与演进史](01-AI-Agent全景与演进史.md)；模型怎样用结构化消息提出工具调用，见[Function Calling 与 Tool Use](04-Function-Calling与Tool-Use.md)。
 
 ### 第一阶段：把所有要求都写进长 Prompt
 
@@ -239,7 +239,7 @@ sequenceDiagram
 
 因此，Skill 的 `description`（描述）不是普通宣传语。它要让模型在尚未读到正文时判断“什么时候该用、什么时候不该用”。正文则负责告诉模型“具体怎样做”。把全部细节塞进描述会让目录变得臃肿，把触发条件只藏在正文里又可能导致 Skill 根本没有被选中。
 
-`[规范]` [Agent Skills 开放规范](https://agentskills.io/specification)定义了以 `SKILL.md` 为入口的目录结构和渐进披露原则，但没有规定所有 Harness 必须使用同一种安装路径、激活命令或消息角色。`[平台]` 有的平台会让模型自动选择，有的平台提供显式命令或专用激活工具，也可能在加载前请求用户确认。具体差异将在[跨 Harness 适配](12-cross-harness.md)中展开。
+`[规范]` [Agent Skills 开放规范](https://agentskills.io/specification)定义了以 `SKILL.md` 为入口的目录结构和渐进披露原则，但没有规定所有 Harness 必须使用同一种安装路径、激活命令或消息角色。`[平台]` 有的平台会让模型自动选择，有的平台提供显式命令或专用激活工具，也可能在加载前请求用户确认。具体差异将在[跨 Harness 适配](12-跨Harness适配.md)中展开。
 
 ## MCP 怎样进入上下文
 
@@ -393,7 +393,7 @@ flowchart LR
 4. **Prompt、项目指令、Skill、MCP 与 Plugin 处在不同职责层，可以组合，不必争夺唯一答案。**
 5. **能力被发现、进入候选、被模型选择和获准执行是四个不同状态。**
 
-若需要先理解模型为什么能按上下文生成 Tool Call、又为什么会流畅地犯错，可先读[LLM 能力底座](02-model-capabilities.md)。基础层的后续章节包括：[Function Calling 与 Tool Use](04-function-calling.md)解释模型怎样提出动作，[Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)解释 Harness 怎样控制执行，[Context Engineering、RAG 与 Memory](06-context-rag-memory.md)解释每一步怎样准备信息，[Multi-Agent 与 A2A](07-multi-agent-a2a.md)解释跨 Agent 委派，[能力发现与路由](08-capability-discovery-routing.md)解释这些能力怎样进入最小候选集，[人机协作与可控交互](09-human-agent-interaction.md)解释用户怎样理解、纠正和控制整个过程。
+若需要先理解模型为什么能按上下文生成 Tool Call、又为什么会流畅地犯错，可先读[LLM 能力底座](02-LLM能力底座与模型选型.md)。基础层的后续章节包括：[Function Calling 与 Tool Use](04-Function-Calling与Tool-Use.md)解释模型怎样提出动作，[Agent Loop、Workflow 与 Planning](05-Agent循环工作流与规划.md)解释 Harness 怎样控制执行，[Context Engineering、RAG 与 Memory](06-上下文工程RAG与Memory.md)解释每一步怎样准备信息，[Multi-Agent 与 A2A](07-Multi-Agent委派与A2A.md)解释跨 Agent 委派，[能力发现与路由](08-能力发现候选裁剪与路由.md)解释这些能力怎样进入最小候选集，[人机协作与可控交互](09-人机协作与可控交互.md)解释用户怎样理解、纠正和控制整个过程。
 
-完成基础层后再进入[高质量 Skills 制作](10-skills.md)或[高质量 MCP 制作](11-mcp.md)，会更容易理解为什么 Skill 负责方法、MCP 负责连接，而 Function Calling 与 Harness 负责把一次动作真正串起来。
+完成基础层后再进入[高质量 Skills 制作](10-高质量Agent-Skill制作.md)或[高质量 MCP 制作](11-高质量MCP-Server制作.md)，会更容易理解为什么 Skill 负责方法、MCP 负责连接，而 Function Calling 与 Harness 负责把一次动作真正串起来。
 

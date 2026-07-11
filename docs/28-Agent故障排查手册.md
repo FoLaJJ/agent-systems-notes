@@ -180,9 +180,9 @@ incident:
 
 ## 继续阅读
 
-- [08. 能力发现、候选裁剪与路由](08-capability-discovery-routing.md)
-- [13. 质量工程与安全](13-quality-and-security.md)
-- [15. 生产级 Agent Runtime 参考架构](15-production-agent-runtime.md)
-- [19. 示例：Skill 路由评测案例](19-routing-evaluation-cases.md)
-- [20. Skill 评审模板](20-skill-review-template.md)
-- [21. MCP 评审模板](21-mcp-review-template.md)
+- [08. 能力发现、候选裁剪与路由](08-能力发现候选裁剪与路由.md)
+- [13. 质量工程与安全](13-质量工程与安全治理.md)
+- [15. 生产级 Agent Runtime 参考架构](15-生产级Agent-Runtime架构.md)
+- [19. 示例：Skill 路由评测案例](19-案例Skill路由评测.md)
+- [20. Skill 评审模板](20-Skill评审模板.md)
+- [21. MCP 评审模板](21-MCP评审模板.md)

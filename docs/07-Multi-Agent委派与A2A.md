@@ -1,6 +1,6 @@
 # 07. Multi-Agent、委派与 A2A
 
-> 多 Agent 不是“多开几个模型窗口”。它是一种任务分解、权限分离和结果合并架构。重点是判断什么时候值得使用多个 Agent、怎样写委派合同，以及 A2A 与 Function Calling、MCP、Skill 分别处在什么边界。建议先阅读[05. Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)，因为委派不会替代单个任务的状态、预算和停止条件。
+> 多 Agent 不是“多开几个模型窗口”。它是一种任务分解、权限分离和结果合并架构。重点是判断什么时候值得使用多个 Agent、怎样写委派合同，以及 A2A 与 Function Calling、MCP、Skill 分别处在什么边界。建议先阅读[05. Agent Loop、Workflow 与 Planning](05-Agent循环工作流与规划.md)，因为委派不会替代单个任务的状态、预算和停止条件。
 
 ## 从一次跨专业发布审查说起
 
@@ -162,7 +162,7 @@ A2A 解决的是另一类问题：两个独立 Agent 系统之间怎样互相发
 
 ## A2A 解决什么
 
-A2A 是 Agent2Agent 协议，面向不同 Agent 系统之间的发现、任务委派、消息交换和产物交付。这里固定官方仓库 `v1.0.1` 作为规范来源快照，核对日期为 2026-07-10；A2A 的线缆协议版本仍是 `1.0`，补丁版本不进入请求、响应、Agent Card 或版本协商。`latest` 文档只是滚动阅读入口，发布兼容声明时必须固定规范/SDK 快照、接口绑定和实际通过的生命周期。来源见[版本基线](24-sources.md#版本基线)与[A2A 规范来源](24-sources.md#p02-a2a-规范)。
+A2A 是 Agent2Agent 协议，面向不同 Agent 系统之间的发现、任务委派、消息交换和产物交付。这里固定官方仓库 `v1.0.1` 作为规范来源快照，核对日期为 2026-07-10；A2A 的线缆协议版本仍是 `1.0`，补丁版本不进入请求、响应、Agent Card 或版本协商。`latest` 文档只是滚动阅读入口，发布兼容声明时必须固定规范/SDK 快照、接口绑定和实际通过的生命周期。来源见[版本基线](24-官方来源事实标签与版本基线.md#版本基线)与[A2A 规范来源](24-官方来源事实标签与版本基线.md#p02-a2a-规范)。
 
 ### 六个核心对象先建立直觉
 
@@ -304,14 +304,14 @@ flowchart TD
 
 ## 继续阅读
 
-- [AI Agent 全景与演进史](01-agent-evolution.md)
-- [Agent、Harness 与上下文基础](03-foundations.md)
-- [Function Calling 与工具调用](04-function-calling.md)
-- [Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)
-- [Context Engineering、RAG 与 Memory](06-context-rag-memory.md)
-- [能力发现、候选裁剪与路由](08-capability-discovery-routing.md)
-- [Skill 与 MCP 组合实践](14-skill-mcp-together.md)
-- [质量工程与安全](13-quality-and-security.md)
-- [生产级 Agent Runtime 参考架构](15-production-agent-runtime.md)
-- [研究论文与官方来源](24-sources.md)
+- [AI Agent 全景与演进史](01-AI-Agent全景与演进史.md)
+- [Agent、Harness 与上下文基础](03-Agent-Skill-MCP基础关系.md)
+- [Function Calling 与工具调用](04-Function-Calling与Tool-Use.md)
+- [Agent Loop、Workflow 与 Planning](05-Agent循环工作流与规划.md)
+- [Context Engineering、RAG 与 Memory](06-上下文工程RAG与Memory.md)
+- [能力发现、候选裁剪与路由](08-能力发现候选裁剪与路由.md)
+- [Skill 与 MCP 组合实践](14-Skill与MCP组合实践.md)
+- [质量工程与安全](13-质量工程与安全治理.md)
+- [生产级 Agent Runtime 参考架构](15-生产级Agent-Runtime架构.md)
+- [研究论文与官方来源](24-官方来源事实标签与版本基线.md)
 

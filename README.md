@@ -78,7 +78,7 @@ flowchart TB
 
 这四条路线互相交叉，但不能写成“Function Calling 进化成 MCP，MCP 又进化成 Skills”。Function Calling 是模型与 Harness 之间的动作接口，MCP 是 Harness 与能力 Server 之间的连接协议，Skill 是过程知识载体，A2A 是 Agent 系统之间的协作协议。
 
-从 Transformer、上下文学习、指令微调、RAG、MRKL、ReAct、Toolformer、Plugins、Function Calling 一直到 MCP、Agent Skills 和 A2A 的可核对时间线，见[01. AI Agent 全景与演进史](docs/01-agent-evolution.md)。模型怎样生成、训练与后训练怎样分工、推理模型和多模态又改变了什么，见[02. LLM 能力底座](docs/02-model-capabilities.md)。
+从 Transformer、上下文学习、指令微调、RAG、MRKL、ReAct、Toolformer、Plugins、Function Calling 一直到 MCP、Agent Skills 和 A2A 的可核对时间线，见[01. AI Agent 全景与演进史](docs/01-AI-Agent全景与演进史.md)。模型怎样生成、训练与后训练怎样分工、推理模型和多模态又改变了什么，见[02. LLM 能力底座](docs/02-LLM能力底座与模型选型.md)。
 
 ## Agent 到底怎样使用它们
 
@@ -202,56 +202,56 @@ flowchart TB
 
 ### 路线 B：Function Calling 和 Agent Runtime
 
-1. 阅读[全景与演进史](docs/01-agent-evolution.md)、[LLM 能力底座](docs/02-model-capabilities.md)和[基础关系](docs/03-foundations.md)，先分清模型能力、Harness、研究方法、产品接口和开放协议。
-2. 跟随[Function Calling 与 Tool Use](docs/04-function-calling.md)，理解从意图/槽位前史到 Tool 定义、流式片段、调用绑定、执行与结果回填。
-3. 阅读[Agent Loop、Workflow 与 Planning](docs/05-agent-loop-workflows.md)，学习 ReAct、Plan-and-Execute、Supervisor、Pipeline、Group Chat、Graph Runtime、状态、检查点、预算、停止与人工介入。
-4. 用[能力发现、候选裁剪与路由](docs/08-capability-discovery-routing.md)理解大量 Tool 怎样进入最小候选集。
-5. 阅读[人机协作与可控交互](docs/09-human-agent-interaction.md)和[生产 Runtime](docs/15-production-agent-runtime.md)，把澄清、批准、进度、取消和恢复落到状态机。
-6. 用[质量工程与安全](docs/13-quality-and-security.md)设计轨迹评测、用途治理和可观测性。
+1. 阅读[全景与演进史](docs/01-AI-Agent全景与演进史.md)、[LLM 能力底座](docs/02-LLM能力底座与模型选型.md)和[基础关系](docs/03-Agent-Skill-MCP基础关系.md)，先分清模型能力、Harness、研究方法、产品接口和开放协议。
+2. 跟随[Function Calling 与 Tool Use](docs/04-Function-Calling与Tool-Use.md)，理解从意图/槽位前史到 Tool 定义、流式片段、调用绑定、执行与结果回填。
+3. 阅读[Agent Loop、Workflow 与 Planning](docs/05-Agent循环工作流与规划.md)，学习 ReAct、Plan-and-Execute、Supervisor、Pipeline、Group Chat、Graph Runtime、状态、检查点、预算、停止与人工介入。
+4. 用[能力发现、候选裁剪与路由](docs/08-能力发现候选裁剪与路由.md)理解大量 Tool 怎样进入最小候选集。
+5. 阅读[人机协作与可控交互](docs/09-人机协作与可控交互.md)和[生产 Runtime](docs/15-生产级Agent-Runtime架构.md)，把澄清、批准、进度、取消和恢复落到状态机。
+6. 用[质量工程与安全](docs/13-质量工程与安全治理.md)设计轨迹评测、用途治理和可观测性。
 
 ### 路线 C：知识型 Agent
 
-1. 先读[全景与演进史](docs/01-agent-evolution.md)和[基础关系](docs/03-foundations.md)，理解信息怎样真正进入模型上下文。
-2. 阅读[LLM 能力底座](docs/02-model-capabilities.md)中上下文与 Embedding 的边界，再阅读[Context Engineering、RAG 与 Memory](docs/06-context-rag-memory.md)，重点理解 RAG、GraphRAG、Agentic RAG、长上下文和 Wiki/知识库的分工。
-3. 用[能力发现与路由](docs/08-capability-discovery-routing.md)设计知识源、Skill 与 Tool 的候选裁剪。
-4. 需要连接实时知识源时，学习[MCP Server 制作](docs/11-mcp.md)。
-5. 需要固定检索、核验和引用方法时，再制作[Agent Skill](docs/10-skills.md)。
+1. 先读[全景与演进史](docs/01-AI-Agent全景与演进史.md)和[基础关系](docs/03-Agent-Skill-MCP基础关系.md)，理解信息怎样真正进入模型上下文。
+2. 阅读[LLM 能力底座](docs/02-LLM能力底座与模型选型.md)中上下文与 Embedding 的边界，再阅读[Context Engineering、RAG 与 Memory](docs/06-上下文工程RAG与Memory.md)，重点理解 RAG、GraphRAG、Agentic RAG、长上下文和 Wiki/知识库的分工。
+3. 用[能力发现与路由](docs/08-能力发现候选裁剪与路由.md)设计知识源、Skill 与 Tool 的候选裁剪。
+4. 需要连接实时知识源时，学习[MCP Server 制作](docs/11-高质量MCP-Server制作.md)。
+5. 需要固定检索、核验和引用方法时，再制作[Agent Skill](docs/10-高质量Agent-Skill制作.md)。
 
 ### 路线 D：制作一个 Skill
 
-1. 阅读[基础关系](docs/03-foundations.md)中“Skill 怎样进入上下文”。
-2. 跟随[Skill 制作教程](docs/10-skills.md)从十几行的最小 Skill 开始。
-3. 参考仓库中的[完整发布风险审查 Skill](docs/16-example-release-risk-review-skill.md)。
-4. 准备共享给团队时，再阅读[能力发现与路由](docs/08-capability-discovery-routing.md)、[跨 Harness](docs/12-cross-harness.md)和[质量与安全](docs/13-quality-and-security.md)。
+1. 阅读[基础关系](docs/03-Agent-Skill-MCP基础关系.md)中“Skill 怎样进入上下文”。
+2. 跟随[Skill 制作教程](docs/10-高质量Agent-Skill制作.md)从十几行的最小 Skill 开始。
+3. 参考仓库中的[完整发布风险审查 Skill](docs/16-案例发布风险审查Skill.md)。
+4. 准备共享给团队时，再阅读[能力发现与路由](docs/08-能力发现候选裁剪与路由.md)、[跨 Harness](docs/12-跨Harness适配.md)和[质量与安全](docs/13-质量工程与安全治理.md)。
 
 ### 路线 E：制作一个 MCP Server
 
-1. 先看[全景与演进史](docs/01-agent-evolution.md)与[基础关系](docs/03-foundations.md)中的调用链。
-2. 再读[Function Calling](docs/04-function-calling.md)，分清模型侧动作提议与真实执行。
-3. 跟随[MCP Server 制作教程](docs/11-mcp.md)理解第一个 Tool。
-4. 对照[只读发布制度 MCP 文档化案例](docs/18-example-policy-knowledge-mcp.md#srcserverts)。
-5. 准备接入真实系统时，再学习[能力路由](docs/08-capability-discovery-routing.md)、授权、错误处理、安全与跨 Harness 适配。
+1. 先看[全景与演进史](docs/01-AI-Agent全景与演进史.md)与[基础关系](docs/03-Agent-Skill-MCP基础关系.md)中的调用链。
+2. 再读[Function Calling](docs/04-Function-Calling与Tool-Use.md)，分清模型侧动作提议与真实执行。
+3. 跟随[MCP Server 制作教程](docs/11-高质量MCP-Server制作.md)理解第一个 Tool。
+4. 对照[只读发布制度 MCP 文档化案例](docs/18-案例只读发布制度MCP-Server.md#srcserverts)。
+5. 准备接入真实系统时，再学习[能力路由](docs/08-能力发现候选裁剪与路由.md)、授权、错误处理、安全与跨 Harness 适配。
 
 ### 路线 F：Multi-Agent 或跨系统协作
 
-1. 先掌握[Agent Loop、Workflow 与 Planning](docs/05-agent-loop-workflows.md)，确认单 Agent 与确定性 Workflow 是否已经足够。
-2. 再阅读[Multi-Agent、委派与 A2A](docs/07-multi-agent-a2a.md)。
-3. 阅读[能力发现与路由](docs/08-capability-discovery-routing.md)，比较 Tool 级选择和 Agent 级委派。
+1. 先掌握[Agent Loop、Workflow 与 Planning](docs/05-Agent循环工作流与规划.md)，确认单 Agent 与确定性 Workflow 是否已经足够。
+2. 再阅读[Multi-Agent、委派与 A2A](docs/07-Multi-Agent委派与A2A.md)。
+3. 阅读[能力发现与路由](docs/08-能力发现候选裁剪与路由.md)，比较 Tool 级选择和 Agent 级委派。
 4. 区分本地子 Agent、跨系统 A2A 和能力接入 MCP，不用 A2A 包装简单函数。
-5. 用[质量工程与安全](docs/13-quality-and-security.md)检查委派链、权限、预算、轨迹和业务结果。
+5. 用[质量工程与安全](docs/13-质量工程与安全治理.md)检查委派链、权限、预算、轨迹和业务结果。
 
 ### 路线 G：公司内部 Agent 能力平台
 
 按 `01 -> 02 -> 03 -> 04 -> 05 -> 06 -> 08 -> 09 -> 10 -> 11 -> 12 -> 13 -> 14 -> 15 -> 20 -> 21 -> 24 -> 25 -> 28` 阅读，并重点使用两个评审模板：
 
-- [Skill 评审模板](docs/20-skill-review-template.md)
-- [MCP 评审模板](docs/21-mcp-review-template.md)
+- [Skill 评审模板](docs/20-Skill评审模板.md)
+- [MCP 评审模板](docs/21-MCP评审模板.md)
 
 ### 路线 H：边读边做练习
 
-1. 先用[术语表与概念索引](docs/26-glossary.md)快速建立词表。
-2. 按[跟做练习](docs/27-hands-on-labs.md)完成责任边界、最小 Skill、只读 MCP、组合调用和路由评测。
-3. 出现“模型答错、工具没调、证据缺失、取消失效”等问题时，用[故障排查手册](docs/28-troubleshooting-playbook.md)定位失败层。
+1. 先用[术语表与概念索引](docs/26-Agent系统术语表与概念索引.md)快速建立词表。
+2. 按[跟做练习](docs/27-跟做练习从概念到可验证Agent能力.md)完成责任边界、最小 Skill、只读 MCP、组合调用和路由评测。
+3. 出现“模型答错、工具没调、证据缺失、取消失效”等问题时，用[故障排查手册](docs/28-Agent故障排查手册.md)定位失败层。
 
 ## 章节导航
 
@@ -259,34 +259,34 @@ flowchart TB
 
 | 篇章 | 内容重点 | 阅读难度 |
 | --- | --- | --- |
-| [01. AI Agent 全景与演进史](docs/01-agent-evolution.md) | 经典规划、BDI、强化学习、多智能体到 LLM Agent 的四线历史与责任地图 | 入门 |
-| [02. LLM 能力底座](docs/02-model-capabilities.md) | Token、自回归生成、预训练/后训练、上下文学习、推理时计算、多模态、Embedding、模型选型与分层故障诊断 | 入门到进阶 |
-| [03. 先认识 Agent、Skill 与 MCP](docs/03-foundations.md) | 模型请求、消息层级、Agent、Harness、Skill、MCP 与上下文注入 | 入门 |
-| [04. Function Calling 与 Tool Use](docs/04-function-calling.md) | 意图/槽位前史、Tool 定义、Schema、流式调用、平台绑定与内部 Trace、执行、回填、并行、错误和三家 API 对照 | 入门到实践 |
-| [05. Agent Loop、Workflow 与 Planning](docs/05-agent-loop-workflows.md) | 自主性边界、编排模式、ReAct、Plan-and-Execute、Supervisor、Group Chat、图状态机、状态、预算和停止 | 入门到进阶 |
-| [06. Context Engineering、RAG 与 Memory](docs/06-context-rag-memory.md) | 上下文组装、RAG/GraphRAG/Agentic RAG、Wiki/知识库定位、记忆生命周期、权限、时效与来源 | 入门到进阶 |
-| [07. Multi-Agent、委派与 A2A](docs/07-multi-agent-a2a.md) | 主 Agent、群聊、流水线、黑板、接力、委派合同和 A2A/MCP 边界 | 进阶 |
-| [08. 能力发现、候选裁剪与路由](docs/08-capability-discovery-routing.md) | 统一 Skill、Tool、MCP、A2A 的发现与候选治理，并按上下文加载、Tool 调用和 Agent 委派分别执行后置门 | 入门到进阶 |
-| [09. 人机协作与可控交互](docs/09-human-agent-interaction.md) | 澄清、计划摘要、风险分级、批准、进度、证据、不确定性、纠正、取消、恢复与人工交接 | 入门到进阶 |
-| [10. 从零制作一个高质量 Agent Skill](docs/10-skills.md) | Skills 的由来与五层运作机制、最小文件、路由合同、执行步骤、渐进披露、评测和完整案例 | 入门到实践 |
-| [11. 从零制作一个高质量 MCP Server](docs/11-mcp.md) | MCP 的由来与技术边界，从普通业务函数写到 Tool、生命周期、Schema、错误、授权与协议能力地图 | 入门到实践 |
-| [12. 跨 Harness 适配](docs/12-cross-harness.md) | Claude Code、Codex、Gemini、Copilot/VS Code 的差异与适配方法 | 进阶 |
-| [13. 质量工程与安全](docs/13-quality-and-security.md) | Agent Eval 闭环、组件/轨迹/产物/业务评测、权限、数据/用途治理、供应链和发布门 | 进阶 |
-| [14. Skill 与 MCP 组合实践](docs/14-skill-mcp-together.md) | 用发布审查串起路由、证据与降级，并用草稿变更单解释预览、批准、幂等和写后对账 | 综合实践 |
-| [15. 生产级 Agent Runtime 参考架构](docs/15-production-agent-runtime.md) | Task Store、队列、持久执行、写操作、模型网关、SLO、灰度与回滚 | 进阶 |
-| [16. 案例：发布风险审查 Skill](docs/16-example-release-risk-review-skill.md) | 完整 Skill 正文，展示发布风险审查的输入、流程、证据、降级和输出合同 | 案例 |
-| [17. 案例：发布风险模型](docs/17-example-release-risk-model.md) | 发布风险评分口径、硬阻断项和发布建议决策门 | 案例 |
-| [18. 案例：只读发布制度 MCP Server](docs/18-example-policy-knowledge-mcp.md) | 文档化 MCP 代码、Tool 合同和协议测试 | 案例 |
-| [19. 案例：Skill 路由评测](docs/19-routing-evaluation-cases.md) | 路由正例、近邻反例、冲突协同和相邻 Skill 夹具 | 案例 |
-| [20. Skill 评审模板](docs/20-skill-review-template.md) | 团队发布 Skill 前的路由、执行、安全和跨 Harness 证据表 | 模板 |
-| [21. MCP 评审模板](docs/21-mcp-review-template.md) | 团队发布 MCP Server 前的协议、业务、安全和运行证据表 | 模板 |
-| [22. 文档页面模板](docs/22-document-page-template.md) | 新增章节时使用的结构模板 | 模板 |
-| [23. 内容规范与发布检查](docs/23-maintenance-guide.md) | 章节归属、事实分级、示例更新和发布检查约定 | 参考 |
-| [24. 官方来源、事实标签与版本基线](docs/24-sources.md) | 规范、产品文档、版本和事实标签的完整出处 | 参考 |
-| [25. Agent 前沿趋势](docs/25-agent-frontier.md) | Runtime、协议化、上下文系统、评测、多模态动作面和前沿采用边界 | 选读 |
-| [26. Agent 系统术语表与概念索引](docs/26-glossary.md) | 快速查阅核心术语、相邻边界和按问题找章节 | 参考 |
-| [27. 跟做练习：从概念到可验证 Agent 能力](docs/27-hands-on-labs.md) | 责任边界、最小 Skill、只读 MCP、组合审查、路由评测练习 | 实践 |
-| [28. Agent 故障排查手册](docs/28-troubleshooting-playbook.md) | 把“Agent 答错了”拆成路由、上下文、工具、权限、状态和输出故障 | 参考 |
+| [01. AI Agent 全景与演进史](docs/01-AI-Agent全景与演进史.md) | 经典规划、BDI、强化学习、多智能体到 LLM Agent 的四线历史与责任地图 | 入门 |
+| [02. LLM 能力底座](docs/02-LLM能力底座与模型选型.md) | Token、自回归生成、预训练/后训练、上下文学习、推理时计算、多模态、Embedding、模型选型与分层故障诊断 | 入门到进阶 |
+| [03. 先认识 Agent、Skill 与 MCP](docs/03-Agent-Skill-MCP基础关系.md) | 模型请求、消息层级、Agent、Harness、Skill、MCP 与上下文注入 | 入门 |
+| [04. Function Calling 与 Tool Use](docs/04-Function-Calling与Tool-Use.md) | 意图/槽位前史、Tool 定义、Schema、流式调用、平台绑定与内部 Trace、执行、回填、并行、错误和三家 API 对照 | 入门到实践 |
+| [05. Agent Loop、Workflow 与 Planning](docs/05-Agent循环工作流与规划.md) | 自主性边界、编排模式、ReAct、Plan-and-Execute、Supervisor、Group Chat、图状态机、状态、预算和停止 | 入门到进阶 |
+| [06. Context Engineering、RAG 与 Memory](docs/06-上下文工程RAG与Memory.md) | 上下文组装、RAG/GraphRAG/Agentic RAG、Wiki/知识库定位、记忆生命周期、权限、时效与来源 | 入门到进阶 |
+| [07. Multi-Agent、委派与 A2A](docs/07-Multi-Agent委派与A2A.md) | 主 Agent、群聊、流水线、黑板、接力、委派合同和 A2A/MCP 边界 | 进阶 |
+| [08. 能力发现、候选裁剪与路由](docs/08-能力发现候选裁剪与路由.md) | 统一 Skill、Tool、MCP、A2A 的发现与候选治理，并按上下文加载、Tool 调用和 Agent 委派分别执行后置门 | 入门到进阶 |
+| [09. 人机协作与可控交互](docs/09-人机协作与可控交互.md) | 澄清、计划摘要、风险分级、批准、进度、证据、不确定性、纠正、取消、恢复与人工交接 | 入门到进阶 |
+| [10. 从零制作一个高质量 Agent Skill](docs/10-高质量Agent-Skill制作.md) | Skills 的由来与五层运作机制、最小文件、路由合同、执行步骤、渐进披露、评测和完整案例 | 入门到实践 |
+| [11. 从零制作一个高质量 MCP Server](docs/11-高质量MCP-Server制作.md) | MCP 的由来与技术边界，从普通业务函数写到 Tool、生命周期、Schema、错误、授权与协议能力地图 | 入门到实践 |
+| [12. 跨 Harness 适配](docs/12-跨Harness适配.md) | Claude Code、Codex、Gemini、Copilot/VS Code 的差异与适配方法 | 进阶 |
+| [13. 质量工程与安全](docs/13-质量工程与安全治理.md) | Agent Eval 闭环、组件/轨迹/产物/业务评测、权限、数据/用途治理、供应链和发布门 | 进阶 |
+| [14. Skill 与 MCP 组合实践](docs/14-Skill与MCP组合实践.md) | 用发布审查串起路由、证据与降级，并用草稿变更单解释预览、批准、幂等和写后对账 | 综合实践 |
+| [15. 生产级 Agent Runtime 参考架构](docs/15-生产级Agent-Runtime架构.md) | Task Store、队列、持久执行、写操作、模型网关、SLO、灰度与回滚 | 进阶 |
+| [16. 案例：发布风险审查 Skill](docs/16-案例发布风险审查Skill.md) | 完整 Skill 正文，展示发布风险审查的输入、流程、证据、降级和输出合同 | 案例 |
+| [17. 案例：发布风险模型](docs/17-案例发布风险评分模型.md) | 发布风险评分口径、硬阻断项和发布建议决策门 | 案例 |
+| [18. 案例：只读发布制度 MCP Server](docs/18-案例只读发布制度MCP-Server.md) | 文档化 MCP 代码、Tool 合同和协议测试 | 案例 |
+| [19. 案例：Skill 路由评测](docs/19-案例Skill路由评测.md) | 路由正例、近邻反例、冲突协同和相邻 Skill 夹具 | 案例 |
+| [20. Skill 评审模板](docs/20-Skill评审模板.md) | 团队发布 Skill 前的路由、执行、安全和跨 Harness 证据表 | 模板 |
+| [21. MCP 评审模板](docs/21-MCP评审模板.md) | 团队发布 MCP Server 前的协议、业务、安全和运行证据表 | 模板 |
+| [22. 文档页面模板](docs/22-文档页面模板.md) | 新增章节时使用的结构模板 | 模板 |
+| [23. 内容规范与发布检查](docs/23-内容规范与发布检查.md) | 章节归属、事实分级、示例更新和发布检查约定 | 参考 |
+| [24. 官方来源、事实标签与版本基线](docs/24-官方来源事实标签与版本基线.md) | 规范、产品文档、版本和事实标签的完整出处 | 参考 |
+| [25. Agent 前沿趋势](docs/25-Agent前沿趋势.md) | Runtime、协议化、上下文系统、评测、多模态动作面和前沿采用边界 | 选读 |
+| [26. Agent 系统术语表与概念索引](docs/26-Agent系统术语表与概念索引.md) | 快速查阅核心术语、相邻边界和按问题找章节 | 参考 |
+| [27. 跟做练习：从概念到可验证 Agent 能力](docs/27-跟做练习从概念到可验证Agent能力.md) | 责任边界、最小 Skill、只读 MCP、组合审查、路由评测练习 | 实践 |
+| [28. Agent 故障排查手册](docs/28-Agent故障排查手册.md) | 把“Agent 答错了”拆成路由、上下文、工具、权限、状态和输出故障 | 参考 |
 
 ## 两个贯穿案例
 
@@ -303,7 +303,7 @@ flowchart LR
 
 ### Skill 案例
 
-[`release-risk-review-skill`](docs/16-example-release-risk-review-skill.md) 展示怎样：
+[`release-risk-review-skill`](docs/16-案例发布风险审查Skill.md) 展示怎样：
 
 - 把发布审查写成可执行流程；
 - 区分事实、假设和未知；
@@ -313,14 +313,14 @@ flowchart LR
 
 ### MCP 案例
 
-[`policy-knowledge-mcp`](docs/18-example-policy-knowledge-mcp.md) 展示怎样：
+[`policy-knowledge-mcp`](docs/18-案例只读发布制度MCP-Server.md) 展示怎样：
 
 - 定义一个低歧义的只读 Tool；
 - 用 Schema 限制输入和结构化输出；
 - 明确表达命中、空结果、非法参数和协议错误；
 - 让 Skill 获取制度证据，但不让 Tool 越权作最终审批。
 
-[组合实践](docs/14-skill-mcp-together.md#扩展示例从只读审查到创建草稿变更单)还提供一条不落代码的写操作设计：把预览、批准、幂等、超时未知状态和外部对账串起来。它用于教学，不表示文档化 MCP 案例已经具备创建工单或其他写权限。
+[组合实践](docs/14-Skill与MCP组合实践.md#扩展示例从只读审查到创建草稿变更单)还提供一条不落代码的写操作设计：把预览、批准、幂等、超时未知状态和外部对账串起来。它用于教学，不表示文档化 MCP 案例已经具备创建工单或其他写权限。
 
 ## 常见需求应该落在哪一层
 
@@ -389,7 +389,7 @@ flowchart LR
 7. 可以保留少量作者判断，但必须服务于概念澄清；不要把点评写成情绪输出。
 8. 图用于解释结构、流程和边界；精确结构优先使用 Mermaid/SVG，SVG 需同步导出同名 PNG。
 
-详细内容规范见[内容规范与发布检查](docs/23-maintenance-guide.md)。
+详细内容规范见[内容规范与发布检查](docs/23-内容规范与发布检查.md)。
 
 > 当前仓库提供四类 Harness 的适配方法和行为验证方案，但没有把它包装成“四端已经认证通过”的结论。平台版本持续变化，实际交付前仍需在目标环境中验证。
 

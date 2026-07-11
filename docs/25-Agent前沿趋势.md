@@ -27,7 +27,7 @@ flowchart LR
 
 早期 Agent 系统常由开发者把模型、工具、文件、状态和日志手工粘在一起。新的趋势是 Runtime 开始内置更多能力：文件与工作区、受控工具、沙箱、记忆、追踪、用量、失败恢复和长任务状态。
 
-这不是说“框架越重越好”。关键变化是：团队不再只问“模型会不会调用工具”，而要问“谁给它工作区、谁限制动作、谁记录 Trace、谁在失败后恢复”。这部分已经进入[生产级 Agent Runtime](15-production-agent-runtime.md)和[质量工程与安全](13-quality-and-security.md)的主线；前沿产品能力只能作为实现选项，不能替代状态机、权限和证据要求。
+这不是说“框架越重越好”。关键变化是：团队不再只问“模型会不会调用工具”，而要问“谁给它工作区、谁限制动作、谁记录 Trace、谁在失败后恢复”。这部分已经进入[生产级 Agent Runtime](15-生产级Agent-Runtime架构.md)和[质量工程与安全](13-质量工程与安全治理.md)的主线；前沿产品能力只能作为实现选项，不能替代状态机、权限和证据要求。
 
 一个实用判断是：Runtime 越像“操作系统”，越不能只看模型能力演示。演示里一个漂亮的浏览器动作，落地时会变成权限、日志、撤回、隔离和责任人的组合题。
 
@@ -159,9 +159,9 @@ flowchart TD
 
 ## 继续阅读
 
-- [05. Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)
-- [08. 能力发现、候选裁剪与路由](08-capability-discovery-routing.md)
-- [10. 从零制作一个高质量 Agent Skill](10-skills.md)
-- [13. 质量工程与安全](13-quality-and-security.md)
-- [15. 生产级 Agent Runtime 参考架构](15-production-agent-runtime.md)
-- [24. 官方来源、事实标签与版本基线](24-sources.md)
+- [05. Agent Loop、Workflow 与 Planning](05-Agent循环工作流与规划.md)
+- [08. 能力发现、候选裁剪与路由](08-能力发现候选裁剪与路由.md)
+- [10. 从零制作一个高质量 Agent Skill](10-高质量Agent-Skill制作.md)
+- [13. 质量工程与安全](13-质量工程与安全治理.md)
+- [15. 生产级 Agent Runtime 参考架构](15-生产级Agent-Runtime架构.md)
+- [24. 官方来源、事实标签与版本基线](24-官方来源事实标签与版本基线.md)

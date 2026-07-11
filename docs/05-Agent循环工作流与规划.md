@@ -1,6 +1,6 @@
 # 05. Agent Loop、Workflow 与 Planning
 
-> [基础关系](03-foundations.md)把 Agent 简化为“模型 + Harness 提供的上下文、工具和执行循环”。这里继续拆开这个“执行循环”：谁决定下一步，模型提出的动作怎样真正发生，一次任务又该在什么时候停止。若还不熟悉工具定义、参数 Schema 和工具结果回填，建议先阅读[04. Function Calling 与 Tool Use](04-function-calling.md)。
+> [基础关系](03-Agent-Skill-MCP基础关系.md)把 Agent 简化为“模型 + Harness 提供的上下文、工具和执行循环”。这里继续拆开这个“执行循环”：谁决定下一步，模型提出的动作怎样真正发生，一次任务又该在什么时候停止。若还不熟悉工具定义、参数 Schema 和工具结果回填，建议先阅读[04. Function Calling 与 Tool Use](04-Function-Calling与Tool-Use.md)。
 
 ![Agent Loop 控制链中文图](../assets/images/agent-loop-control-zh.svg)
 
@@ -178,7 +178,7 @@ Orchestrator-Worker（编排者-工作者）由编排者根据当前任务动态
 
 这比固定并行分支更灵活，也更需要合同。每个工作者应收到：有限目标、允许的数据和工具、输出 Schema、预算、截止时间和禁止动作。编排者负责去重、处理冲突和判断缺口，不能把多个结论简单拼接。
 
-当工作者成为具有独立状态、身份或网络边界的 Agent 时，委派还需要处理交接、权限传播和任务产物，见[07. Multi-Agent、委派与 A2A](07-multi-agent-a2a.md)。
+当工作者成为具有独立状态、身份或网络边界的 Agent 时，委派还需要处理交接、权限传播和任务产物，见[07. Multi-Agent、委派与 A2A](07-Multi-Agent委派与A2A.md)。
 
 ### Evaluator-Optimizer：按标准检查并有限修订
 
@@ -435,5 +435,5 @@ flowchart TB
 5. **Supervisor、Group Chat、Handoff、Blackboard 和 Graph Runtime 属于不同架构层级，不能只按框架名选型。**
 6. **生产系统优先采用“确定性外层 Workflow + 有限自主 Agent 步骤”，让灵活性与安全边界同时可见。**
 
-下一步可以阅读[能力发现、候选裁剪与路由](08-capability-discovery-routing.md)，理解当前循环为什么只应看到最小能力集合；再用[人机协作与可控交互](09-human-agent-interaction.md)设计澄清、批准、进度、纠正和取消。也可以进入[高质量 Agent Skill 制作](10-skills.md)或[MCP Server 制作](11-mcp.md)。准备把长任务交付生产时，再用[生产级 Agent Runtime 参考架构](15-production-agent-runtime.md)和[质量工程与安全](13-quality-and-security.md)验证恢复、路由、执行、权限与失败行为。
+下一步可以阅读[能力发现、候选裁剪与路由](08-能力发现候选裁剪与路由.md)，理解当前循环为什么只应看到最小能力集合；再用[人机协作与可控交互](09-人机协作与可控交互.md)设计澄清、批准、进度、纠正和取消。也可以进入[高质量 Agent Skill 制作](10-高质量Agent-Skill制作.md)或[MCP Server 制作](11-高质量MCP-Server制作.md)。准备把长任务交付生产时，再用[生产级 Agent Runtime 参考架构](15-生产级Agent-Runtime架构.md)和[质量工程与安全](13-质量工程与安全治理.md)验证恢复、路由、执行、权限与失败行为。
 

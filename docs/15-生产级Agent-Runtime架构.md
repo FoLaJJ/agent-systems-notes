@@ -243,7 +243,7 @@ SLI（Service Level Indicator，服务级指标）是实际测量值，SLO（Ser
 
 ## 在途 Run 的部署、迁移与停用
 
-Agent 变更不只有代码。模型、Prompt、Skill、Tool Schema、MCP Server、Agent Card、检索索引、Memory 规则、权限策略和路由器都会改变行为。通用离线回归、Shadow、灰度和线上回滚流程见[质量工程与安全](13-quality-and-security.md#第四步连接离线回归与线上反馈)；Runtime 额外要处理已经在途的 Run：
+Agent 变更不只有代码。模型、Prompt、Skill、Tool Schema、MCP Server、Agent Card、检索索引、Memory 规则、权限策略和路由器都会改变行为。通用离线回归、Shadow、灰度和线上回滚流程见[质量工程与安全](13-质量工程与安全治理.md#第四步连接离线回归与线上反馈)；Runtime 额外要处理已经在途的 Run：
 
 1. 创建 Run 时固定一份 `version_set`，包含模型、Prompt、Skill、Tool、数据/索引和策略版本；
 2. 新版本默认只接收新 Run，旧 Worker 按旧版本集合排空，不能在中途静默换模型或 Schema；
@@ -283,11 +283,11 @@ Agent 变更不只有代码。模型、Prompt、Skill、Tool Schema、MCP Server
 
 ## 继续阅读
 
-- [Agent Loop、Workflow 与 Planning](05-agent-loop-workflows.md)：控制权、状态、预算与停止条件；
-- [Context Engineering、RAG 与 Memory](06-context-rag-memory.md)：长任务上下文和记忆生命周期；
-- [能力发现、候选裁剪与路由](08-capability-discovery-routing.md)：Capability Gateway 的核心方法；
-- [Multi-Agent、委派与 A2A](07-multi-agent-a2a.md)：跨 Agent Task、状态与 Artifact；
-- [人机协作与可控交互](09-human-agent-interaction.md)：把 Runtime 状态转换为澄清、批准、进度、纠正、取消与恢复；
-- [质量工程与安全](13-quality-and-security.md)：通用 Agent Eval、威胁模型、数据治理与发布门；
-- [Skill 与 MCP 组合实践](14-skill-mcp-together.md)：从过程知识到实时能力的贯穿案例。
+- [Agent Loop、Workflow 与 Planning](05-Agent循环工作流与规划.md)：控制权、状态、预算与停止条件；
+- [Context Engineering、RAG 与 Memory](06-上下文工程RAG与Memory.md)：长任务上下文和记忆生命周期；
+- [能力发现、候选裁剪与路由](08-能力发现候选裁剪与路由.md)：Capability Gateway 的核心方法；
+- [Multi-Agent、委派与 A2A](07-Multi-Agent委派与A2A.md)：跨 Agent Task、状态与 Artifact；
+- [人机协作与可控交互](09-人机协作与可控交互.md)：把 Runtime 状态转换为澄清、批准、进度、纠正、取消与恢复；
+- [质量工程与安全](13-质量工程与安全治理.md)：通用 Agent Eval、威胁模型、数据治理与发布门；
+- [Skill 与 MCP 组合实践](14-Skill与MCP组合实践.md)：从过程知识到实时能力的贯穿案例。
 

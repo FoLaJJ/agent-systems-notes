@@ -2,7 +2,7 @@
 
 > 基线日期：2026-07-10。MCP 兼容基线固定为 `2025-11-25`。稳定规范才进入实现要求；Draft 或 RC 能力仅可进入前瞻试验，不能进入兼容性声明。
 
-> **使用场景：** 这是进阶参考，不是制作第一个 Skill 或 MCP Server 的前置章节。先完成[Skills 制作](10-skills.md)或[MCP 制作](11-mcp.md)，并理解[能力发现与路由](08-capability-discovery-routing.md)；准备把同一能力交付到多个 Harness 时，再查路径、配置和差异。
+> **使用场景：** 这是进阶参考，不是制作第一个 Skill 或 MCP Server 的前置章节。先完成[Skills 制作](10-高质量Agent-Skill制作.md)或[MCP 制作](11-高质量MCP-Server制作.md)，并理解[能力发现与路由](08-能力发现候选裁剪与路由.md)；准备把同一能力交付到多个 Harness 时，再查路径、配置和差异。
 
 ## 跨平台不等于原样复制
 
@@ -31,7 +31,7 @@ flowchart LR
 
 ## Skills 双矩阵之一：发现与调用
 
-下表只记录官方支持面，不把“路径相同”推导成“实现相同”。每个产品事实都可在[官方来源索引](24-sources.md#各-harness-的-skills)中复核。
+下表只记录官方支持面，不把“路径相同”推导成“实现相同”。每个产品事实都可在[官方来源索引](24-官方来源事实标签与版本基线.md#各-harness-的-skills)中复核。
 
 | 维度 | Claude Code | OpenAI Codex CLI | Gemini CLI | GitHub Copilot CLI / VS Code |
 | --- | --- | --- | --- | --- |
@@ -66,7 +66,7 @@ flowchart LR
 | 诊断命令 | `[平台]` `claude mcp list/get` 或会话内 `/mcp` | `[平台]` `codex mcp list/get` | `[平台]` `/mcp`、`/mcp auth` | `[平台]` `copilot mcp list/get`；VS Code `MCP: List Servers` |
 | 最低验收 | `[建议]` 初始化、列出工具、一次正常调用、一次拒绝调用 | `[建议]` 同左，外加允许工具列表核对 | `[建议]` 同左，外加 `trust` 与过滤规则核对 | `[建议]` CLI 与 VS Code 分别运行，不互相代替 |
 
-`[规范]` stdio 与 Streamable HTTP 是 MCP `2025-11-25` 的标准传输。SSE 仅作为旧式兼容面记录，新 Server 不应为追求“平台更多”而优先选择它。参见 [MCP 传输规范（S08）](24-sources.md#s08-mcp-传输)。
+`[规范]` stdio 与 Streamable HTTP 是 MCP `2025-11-25` 的标准传输。SSE 仅作为旧式兼容面记录，新 Server 不应为追求“平台更多”而优先选择它。参见 [MCP 传输规范（S08）](24-官方来源事实标签与版本基线.md#s08-mcp-传输)。
 
 `[建议]` 跨端最低公分母使用 Tools。确有用户主动选择模板或资源的需求时，再把 Prompts、Resources 作为能力协商后的增强；不得为了兼容而把所有 Resource 内容伪装成 Tool 结果并自动注入。
 
@@ -105,7 +105,7 @@ MCP Server 建议满足以下约束：
 
 ## Claude Code 适配
 
-`[平台]` Claude Code 的 Skill 文档与 MCP 文档分别见 [S11](24-sources.md#s11-claude-code-skills) 和 [S12](24-sources.md#s12-claude-code-mcp)。开放核心安装到：
+`[平台]` Claude Code 的 Skill 文档与 MCP 文档分别见 [S11](24-官方来源事实标签与版本基线.md#s11-claude-code-skills) 和 [S12](24-官方来源事实标签与版本基线.md#s12-claude-code-mcp)。开放核心安装到：
 
 ```text
 .claude/
@@ -126,7 +126,7 @@ MCP Server 建议满足以下约束：
       "type": "stdio",
       "command": "node",
       "args": [
-        "${CLAUDE_PROJECT_DIR:-.}/docs/18-example-policy-knowledge-mcp.mddist/index.js"
+        "${CLAUDE_PROJECT_DIR:-.}/docs/18-案例只读发布制度MCP-Server.mddist/index.js"
       ]
     }
   }
@@ -137,7 +137,7 @@ MCP Server 建议满足以下约束：
 
 ## OpenAI Codex CLI 适配
 
-`[平台]` Codex 的 Skill 与 MCP 官方入口见 [S14](24-sources.md#s14-openai-codex-skills) 和 [S15](24-sources.md#s15-openai-codex-mcp)。项目 Skill 使用：
+`[平台]` Codex 的 Skill 与 MCP 官方入口见 [S14](24-官方来源事实标签与版本基线.md#s14-openai-codex-skills) 和 [S15](24-官方来源事实标签与版本基线.md#s15-openai-codex-mcp)。项目 Skill 使用：
 
 ```text
 .agents/
@@ -152,7 +152,7 @@ MCP Server 建议满足以下约束：
 ```toml
 [mcp_servers.policy-knowledge]
 command = "node"
-args = ["docs/18-example-policy-knowledge-mcp.mddist/index.js"]
+args = ["docs/18-案例只读发布制度MCP-Server.mddist/index.js"]
 startup_timeout_sec = 10
 tool_timeout_sec = 30
 enabled_tools = ["search_release_policy"]
@@ -163,7 +163,7 @@ default_tools_approval_mode = "prompt"
 
 ## Gemini CLI 适配
 
-`[平台]` Gemini CLI 同时识别 `.agents/skills` 与 `.gemini/skills`，同层发生同名冲突时 `.agents/skills` 优先。Skill 被选中后，Harness 调用 `activate_skill`，向用户展示访问目录，获得同意才注入正文与目录结构。参见 [S17](24-sources.md#s17-gemini-cli-skills)。
+`[平台]` Gemini CLI 同时识别 `.agents/skills` 与 `.gemini/skills`，同层发生同名冲突时 `.agents/skills` 优先。Skill 被选中后，Harness 调用 `activate_skill`，向用户展示访问目录，获得同意才注入正文与目录结构。参见 [S17](24-官方来源事实标签与版本基线.md#s17-gemini-cli-skills)。
 
 开发期可在 Gemini CLI 交互会话中执行：
 
@@ -189,11 +189,11 @@ default_tools_approval_mode = "prompt"
 }
 ```
 
-`[平台]` `command`、`url`、`httpUrl` 分别选择 stdio、旧 SSE、Streamable HTTP；`excludeTools` 优先于 `includeTools`。`trust: true` 会跳过该 Server 的工具确认，因此团队共享配置应保持 `false`，除非已有等价的外部强制控制。参见 [Gemini CLI MCP（S18）](24-sources.md#s18-gemini-cli-mcp)。
+`[平台]` `command`、`url`、`httpUrl` 分别选择 stdio、旧 SSE、Streamable HTTP；`excludeTools` 优先于 `includeTools`。`trust: true` 会跳过该 Server 的工具确认，因此团队共享配置应保持 `false`，除非已有等价的外部强制控制。参见 [Gemini CLI MCP（S18）](24-官方来源事实标签与版本基线.md#s18-gemini-cli-mcp)。
 
 ## GitHub Copilot CLI 与 VS Code 适配
 
-`[平台]` Copilot 的 Agent Skills 概览列出 `.github/skills`、`.claude/skills`、`.agents/skills` 三种项目路径；为减少副本，这组产品也采用 `.agents/skills`。参见 [S19](24-sources.md#s19-github-copilot-agent-skills)。
+`[平台]` Copilot 的 Agent Skills 概览列出 `.github/skills`、`.claude/skills`、`.agents/skills` 三种项目路径；为减少副本，这组产品也采用 `.agents/skills`。参见 [S19](24-官方来源事实标签与版本基线.md#s19-github-copilot-agent-skills)。
 
 Copilot CLI 检查命令：
 
@@ -211,7 +211,7 @@ Copilot CLI 检查命令：
     "policy-knowledge": {
       "type": "local",
       "command": "node",
-      "args": ["docs/18-example-policy-knowledge-mcp.mddist/index.js"],
+      "args": ["docs/18-案例只读发布制度MCP-Server.mddist/index.js"],
       "env": {},
       "tools": ["search_release_policy"]
     }
@@ -228,14 +228,14 @@ VS Code 工作区 `.vscode/mcp.json` 使用不同的顶层键：
       "type": "stdio",
       "command": "node",
       "args": [
-        "${workspaceFolder}/docs/18-example-policy-knowledge-mcp.mddist/index.js"
+        "${workspaceFolder}/docs/18-案例只读发布制度MCP-Server.mddist/index.js"
       ]
     }
   }
 }
 ```
 
-`[平台]` VS Code 第一次启动新 Server 时显示 Server Trust；工作区配置和用户信任状态分离。组织还可以用 Copilot 策略限制 MCP。参见 [VS Code MCP（S22）](24-sources.md#s22-vs-code-mcp)与 [Copilot CLI MCP（S20）](24-sources.md#s20-github-copilot-cli-mcp)。
+`[平台]` VS Code 第一次启动新 Server 时显示 Server Trust；工作区配置和用户信任状态分离。组织还可以用 Copilot 策略限制 MCP。参见 [VS Code MCP（S22）](24-官方来源事实标签与版本基线.md#s22-vs-code-mcp)与 [Copilot CLI MCP（S20）](24-官方来源事实标签与版本基线.md#s20-github-copilot-cli-mcp)。
 
 `[建议]` Copilot CLI 与 VS Code 必须作为两个运行表面分别留证：它们共享品牌和部分格式，不共享完整的上下文组装、UI、确认状态或版本生命周期。
 
