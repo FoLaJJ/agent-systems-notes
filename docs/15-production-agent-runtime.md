@@ -26,19 +26,22 @@
 
 ```mermaid
 flowchart TB
-    U["API / Chat / Event Ingress"] --> A["身份、租户与请求校验"]
-    A --> T["Task Service<br/>Run 状态与幂等入口"]
-    T --> S["Task Store / Outbox<br/>Checkpoint / Artifact"]
+    U["Ingress"] --> A["身份与请求校验"]
+    A --> T["Task Service"]
+    T --> S["Task Store / Outbox"]
     S --> Q["Queue"]
-    Q --> W["Worker / Orchestrator<br/>持有状态机租约"]
-    W --> C["Context Builder"]
-    C --> R["Retriever / Knowledge Index"]
-    C --> M["Memory Store<br/>受控召回"]
-    W -. "通过写入策略" .-> M
-    W <--> G["Model Gateway"]
-    W <--> P["Capability Gateway<br/>Local Tool / MCP / A2A"]
-    W <--> H["Human Approval"]
+    Q --> W["Worker / Orchestrator"]
     W <--> S
+```
+
+```mermaid
+flowchart LR
+    W["Worker / Orchestrator"] --> C["Context Builder"]
+    C --> R["Retriever / Knowledge Index"]
+    C --> M["Memory Store"]
+    W <--> G["Model Gateway"]
+    W <--> P["Capability Gateway"]
+    W <--> H["Human Approval"]
 ```
 
 同一个小型应用可以把这些模块放在一个进程中；大型平台也可以拆成服务。图中的 Orchestrator 是运行在 Worker 中、实际推进某个 Run 状态机的逻辑组件；若实现为独立服务，也必须保留同样的租约、条件写和回调边界。Retriever 只读知识索引，Memory Store 的写入必须由 Orchestrator 经过独立策略门发起，Context Builder 只负责召回与组装。每个模块都向 Trace、Eval、Audit 和成本系统发出最小化事件，图中省略这些横切箭头。
@@ -94,17 +97,20 @@ Worker 取得的是有限期租约，不是永久所有权。可使用 fencing t
 ```mermaid
 flowchart TD
     S["创建"] --> A["accepted"] --> R["running"]
-    R --> W["waiting_input / waiting_approval"]
+    R --> W["waiting_input / approval"]
     W --> R
     R --> Y["retry_scheduled"] --> R
-    A --> Q["cancel_requested"]
-    R --> Q
-    W --> Q
-    Q --> K["canceling / 对账在途动作"] --> X["canceled"]
     R --> C["completed"]
-    R --> B["blocked"]
-    R --> F["failed"]
-    R --> E["budget_exhausted"]
+    R --> B["blocked / failed / budget_exhausted"]
+```
+
+```mermaid
+flowchart LR
+    A["accepted"] --> Q["cancel_requested"]
+    R["running"] --> Q
+    W["waiting"] --> Q
+    Q --> K["canceling<br/>对账在途动作"]
+    K --> X["canceled"]
 ```
 
 这张图是教程建议，不是 A2A 或某家 SDK 的状态枚举，并省略了等待超时等分支。`waiting_*` 和 `retry_scheduled` 是可继续状态；`completed`、`blocked`、`failed`、`canceled`、`budget_exhausted` 是本图终态，不重新打开。需要在终态后继续时，新建关联 Run 并继承经过验证的 Artifact/Checkpoint。只有停止后续调度并对账在途动作后，`cancel_requested` 才能进入 `canceled`。模型输出“完成”只能成为状态转换提议，不能直接写入 `completed`。
@@ -129,26 +135,31 @@ sequenceDiagram
     actor U as 用户/调用方
     participant T as Task Service
     participant S as State Store / Outbox
-    participant D as Outbox Dispatcher
+    participant D as Dispatcher
     participant Q as Queue
-    participant W as Worker / Orchestrator
-    participant E as Tool / MCP / A2A
     U->>T: 创建任务 + client_request_id
-    T->>S: 同一事务中去重、创建 Run 与 Outbox 事件
+    T->>S: 去重、创建 Run 与 Outbox
     T-->>U: run_id + accepted
     D->>S: 扫描未发布 Outbox
-    D->>Q: 可重复发布 run_id
+    D->>Q: 发布 run_id
     D->>S: 记录发布结果
-    Q->>W: 投递 Run + 租约/fencing token
-    W->>S: 读取状态版本与 Checkpoint
-    W->>S: 写入 pending Call、logical_operation_id、attempt_id、幂等键
-    W->>E: 带逻辑操作 ID / 幂等键 / fencing token 调度
-    E-->>W: 结果、外部操作 ID 或明确错误
-    W->>S: 条件写入结果、证据、外部操作 ID 与 Checkpoint
+```
+
+```mermaid
+sequenceDiagram
+    participant Q as Queue
+    participant W as Worker
+    participant S as State Store
+    participant E as Tool / MCP / A2A
+    actor U as 用户/调用方
+    Q->>W: 投递 Run + 租约
+    W->>S: 读取状态与 Checkpoint
+    W->>S: 写入 pending Call 与幂等键
+    W->>E: 带幂等键调度
+    E-->>W: 结果或明确错误
+    W->>S: 条件写入结果与证据
     W->>Q: 状态提交成功后 ACK
-    W-->>T: 更新进度或终态
-    U->>T: 查询、补充输入或取消
-    T-->>U: 状态 + Artifact 引用
+    U->>S: 查询、补充输入或取消
 ```
 
 Run 创建与入队不能做成无协调的两次写，否则进程可能在创建 Run 后、投递消息前崩溃。事务 Outbox 在同一数据库事务中保存 Run 与待发布事件，再由 Dispatcher 重试发布；也可以采用队列原生事务或具有同等故障语义的协调机制。扫描器应修复长期停在 `accepted` 且没有有效投递记录的 Run。消费端只在状态提交后 ACK（确认消费），提交失败则允许重投。

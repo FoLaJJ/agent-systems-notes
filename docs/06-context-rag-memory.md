@@ -324,23 +324,30 @@ flowchart LR
 ```mermaid
 sequenceDiagram
     participant H as Harness
-    participant R as RAG Retriever / Knowledge Index
+    participant R as RAG / Knowledge Index
     participant M as Memory Store
     participant S as Skill
     participant L as 模型
-    participant T as Tool/MCP
-    H->>R: 按问题、版本和权限检索证据
-    R-->>H: 返回片段、来源、时间与检索状态
-    H->>M: 按主体、任务和用途召回状态
+    H->>R: 按问题、版本和权限检索
+    R-->>H: 返回片段、来源和状态
+    H->>M: 召回受控状态
     M-->>H: 返回受控 Memory 条目
-    H->>S: 根据请求加载相关过程
-    H->>L: 注入目标、必要状态、Skill 与有限证据
+    H->>S: 加载相关过程
+    H->>L: 注入目标、状态、Skill 与证据
+```
+
+```mermaid
+sequenceDiagram
+    participant H as Harness
+    participant L as 模型
+    participant T as Tool / MCP
+    participant M as Memory Store
     L-->>H: 提议下一步或工具调用
-    H->>T: 调度经过校验与授权的调用
+    H->>T: 调度校验后的调用
     T-->>H: 返回结果、来源和错误状态
     H->>L: 裁剪后回填观察结果
     L-->>H: 更新计划或形成产物
-    H->>M: 仅在满足写入规则时保存新状态
+    H->>M: 按规则保存新状态
 ```
 
 顺序并非固定，但职责不能倒置：检索系统不应决定最终业务结论，Memory 不应成为隐藏系统提示，Tool 结果不应自动升级为指令，模型也不应绕过 Harness 直接写入长期状态。
